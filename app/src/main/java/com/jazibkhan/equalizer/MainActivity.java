@@ -189,7 +189,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             @Override
             public void invoke(int j) {
                 if (canEnable) {
-                    virtualizer.setStrength((short) j);
+                    try{
+                    virtualizer.setStrength((short) j);}
+                    catch (Throwable e){
+                        e.printStackTrace();
+                    }
                     saveChanges();
                 } else disableEvery();
             }
@@ -199,9 +203,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             @Override
             public void invoke(int i) {
                 if (canEnable) {
-                    //           Log.d("WOW", "level bass slider*************************** " + (short) i);
-                    bb.setStrength((short) i);
-                    //           Log.d("WOW", "set progress actual bass level *************************** " + bb.getRoundedStrength());
+                    try{
+                    bb.setStrength((short) i);}
+                    catch (Throwable e){
+                        e.printStackTrace();
+                    }
+
                     saveChanges();
                 } else disableEvery();
             }
@@ -211,8 +218,13 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             public void invoke(int j) {
                 if (canEnable) {
                     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
-                    loudnessEnhancer.setTargetGain(j);
-               //     Log.d("WOW", "Loudness Target gain *************************** " + loudnessEnhancer.getTargetGain());
+                        try {
+                            loudnessEnhancer.setTargetGain(j);
+                        } catch (Throwable e) {
+
+                            e.printStackTrace();
+                        }
+
                     }
                     saveChanges();
                 } else disableEvery();
@@ -453,7 +465,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void updateLoudness() {
         if (loudnessEnhancer != null){
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                try{
             loudSlider.setProgress((int)(loudnessEnhancer.getTargetGain()));
+            }catch (Throwable e){
+                e.printStackTrace();
+                }
+
         }
         else
             loudSlider.setProgress(0);
@@ -529,26 +546,60 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         enableLoud.setChecked(myPreferences.getBoolean("loudswitch",false));
 
         try {
-            if (bb != null)
-                bb.setStrength((short) myPreferences.getInt("bbslider", 0));
+            if (bb != null){
+                try{
+                    bb.setStrength((short) myPreferences.getInt("bbslider", 0));
+                }
+                catch (Throwable e){
+                    e.printStackTrace();
+                }
+            }
             else {
                 bb = new BassBoost(100, 0);
-                bb.setStrength((short) myPreferences.getInt("bbslider", 0));
+
+                try{
+                    bb.setStrength((short) myPreferences.getInt("bbslider", 0));
+                }
+                catch (Throwable e){
+                    e.printStackTrace();
+                }
             }
-            if (virtualizer != null)
-                virtualizer.setStrength((short) myPreferences.getInt("virslider", 0));
+            if (virtualizer != null){
+
+                try{
+                    virtualizer.setStrength((short) myPreferences.getInt("virslider", 0));
+                }
+                catch (Throwable e){
+                    e.printStackTrace();
+                }
+            }
             else {
                 virtualizer = new Virtualizer(100, 0);
-                virtualizer.setStrength((short) myPreferences.getInt("virslider", 0));
+
+                try{
+                    virtualizer.setStrength((short) myPreferences.getInt("virslider", 0));
+                }
+                catch (Throwable e){
+                    e.printStackTrace();
+                }
             }
             if (loudnessEnhancer != null){
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-                loudnessEnhancer.setTargetGain((int)myPreferences.getFloat("loudslider", 0));
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                    try{
+                loudnessEnhancer.setTargetGain((int)myPreferences.getFloat("loudslider", 0));}
+                catch(Throwable e){
+                        e.printStackTrace();
+                }
+                }
             }
             else {
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 loudnessEnhancer = new LoudnessEnhancer( 0);
-                loudnessEnhancer.setTargetGain((int)myPreferences.getFloat("loudslider", 0));
+                try{
+                loudnessEnhancer.setTargetGain((int)myPreferences.getFloat("loudslider", 0));}
+                catch (Throwable e){
+                    e.printStackTrace();
+                }
                 }
             }
         } catch (Throwable e) {
@@ -584,7 +635,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         enableBass.setChecked(false);
         enableLoud.setChecked(false);
         canEnable = false;
-        loudnessEnhancer.setEnabled(false);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+            loudnessEnhancer.setEnabled(false);
         loudSlider.setEnabled(false);
         loudSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.progress_gray));
         virtualizer.setEnabled(false);
