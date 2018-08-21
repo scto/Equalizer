@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         setContentView(R.layout.activity_main);
 
         MobileAds.initialize(this, "ca-app-pub-3247504109469111~8021644228");
-        mAdView = (AdView) findViewById(R.id.adView);
+        mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("9CAE76FEB9BFA8EA6723EEED1660711A").build();
         mAdView.loadAd(adRequest);
 
