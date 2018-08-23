@@ -1,8 +1,11 @@
-package com.jazibkhan.equalizer;
+package com.jazibkhan.equalizer.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.jazibkhan.equalizer.LicensesDialogFragment;
+import com.jazibkhan.equalizer.R;
 
 import mehdi.sakout.aboutpage.AboutPage;
 import mehdi.sakout.aboutpage.Element;

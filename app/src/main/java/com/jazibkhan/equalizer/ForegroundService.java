@@ -6,11 +6,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.media.audiofx.BassBoost;
+import android.media.audiofx.Equalizer;
+import android.media.audiofx.LoudnessEnhancer;
+import android.media.audiofx.Virtualizer;
 import android.os.Build;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import com.jazibkhan.equalizer.View.MainActivity;
 
 /**
  * Created by Jazib on 2/10/2018.
@@ -21,6 +26,7 @@ public class ForegroundService extends Service{
 
     private static final String LOG_TAG = "ForegroundService";
     String CHANNEL_ID="myChannel";
+
 
     @Override
     public void onCreate() {
