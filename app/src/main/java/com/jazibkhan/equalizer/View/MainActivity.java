@@ -31,13 +31,15 @@ import com.google.android.gms.ads.MobileAds;
 import com.jazibkhan.equalizer.Constants;
 import com.jazibkhan.equalizer.ForegroundService;
 import com.jazibkhan.equalizer.R;
+import com.jazibkhan.equalizer.SettingsActivity;
+import com.kobakei.ratethisapp.RateThisApp;
 import com.marcinmoskala.arcseekbar.ArcSeekBar;
 import com.marcinmoskala.arcseekbar.ProgressListener;
 
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener,SharedPreferences.OnSharedPreferenceChangeListener {
 
     Switch enabled = null;
     Switch enableBass, enableVirtual, enableLoud;
@@ -62,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @Override
     protected void onResume() {
+
+
         Log.d(TAG, "onResume: RESUME");
         if(!isServiceRunning()&&eq==null){
             eq = new Equalizer(100, 0);
@@ -85,7 +89,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             eq.release();
             virtualizer.release();
             bb.release();
-            loudnessEnhancer.release();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                loudnessEnhancer.release();
             eq=null;
             virtualizer=null;
             bb=null;
@@ -97,12 +102,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @Override
     protected void onDestroy() {
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
         Log.d(TAG, "onDestroy: DESTROY");
         if(!isServiceRunning()&&eq!=null){
             eq.release();
             virtualizer.release();
             bb.release();
-            loudnessEnhancer.release();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                loudnessEnhancer.release();
             eq=null;
             virtualizer=null;
             bb=null;
@@ -123,7 +130,22 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(sharedPreferences.getBoolean("dark_theme",false)){
+            setTheme(R.style.AppTheme_Dark);
+           // MainActivity.this.recreate();
+        }
+        else {
+            setTheme(R.style.AppTheme);
+            //MainActivity.this.recreate();
+        }
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
         setContentView(R.layout.activity_main);
+
+        RateThisApp.onCreate(this);
+        RateThisApp.showRateDialogIfNeeded(this);
+
         Log.d(TAG, "onCreate: CREATE");
 
         MobileAds.initialize(this, "ca-app-pub-3247504109469111~8021644228");
@@ -184,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         if (eq != null) {
             num_sliders = eq.getNumberOfBands();
             short r[] = eq.getBandLevelRange();
+            Log.d(TAG, "onCreate: Num of Sliders********** "+num_sliders);
             min_level = r[0];
             max_level = r[1];
             for (int i = 0; i < num_sliders && i < MAX_SLIDERS; i++) {
@@ -441,6 +464,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent myIntent = new Intent(MainActivity.this, SettingsActivity.class);
+            MainActivity.this.startActivity(myIntent);
+            return true;
+        }
+        if (id == R.id.action_about) {
             Intent myIntent = new Intent(MainActivity.this, AboutActivity.class);
             MainActivity.this.startActivity(myIntent);
             return true;
@@ -448,7 +476,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         return super.onOptionsItemSelected(item);
     }
-
 
     public void updateUI() {
         applyChanges();
@@ -753,5 +780,20 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     public boolean isServiceRunning() {
         return (enabled.isChecked() || enableBass.isChecked() || enableVirtual.isChecked() || enableLoud.isChecked());
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        if(s.equals("dark_theme")){
+        if(sharedPreferences.getBoolean("dark_theme",false)){
+            setTheme(R.style.AppTheme_Dark);
+            MainActivity.this.recreate();
+        }
+        else {
+            setTheme(R.style.AppTheme);
+            MainActivity.this.recreate();
+        }
+        }
+
     }
 }
