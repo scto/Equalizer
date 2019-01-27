@@ -1,4 +1,4 @@
-package com.jazibkhan.equalizer.View;
+package com.jazibkhan.equalizer;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

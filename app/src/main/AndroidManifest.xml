@@ -21,9 +21,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:replace="android:icon">
+        tools:replace="android:icon"
+        tools:ignore="GoogleAppIndexingWarning"
+        android:name=".EffectInstance">
         <activity
-            android:name=".View.MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTop">
             <intent-filter>

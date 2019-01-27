@@ -1,307 +1,313 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/visualLinearLayout"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardEq"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="1dp">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="1dp">
+            android:orientation="vertical">
 
-            <LinearLayout
+
+            <Switch
+                android:id="@+id/switchEnable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:padding="16dp"
+                android:text="@string/enable_equalizer" />
 
+
+            <LinearLayout
+                android:id="@+id/linearLayoutEqual"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:paddingBottom="16dp"
+                android:layout_below="@id/switchEnable">
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/centerFreq0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="12sp" />
+
+                    <SeekBar
+                        android:id="@+id/mySeekBar0"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:rotation="270" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/centerFreq1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="12sp" />
+
+                    <SeekBar
+                        android:id="@+id/mySeekBar1"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:rotation="270" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/centerFreq2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="12sp" />
+
+                    <SeekBar
+                        android:id="@+id/mySeekBar2"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:rotation="270" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/centerFreq3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="12sp" />
+
+                    <SeekBar
+                        android:id="@+id/mySeekBar3"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:rotation="270" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/centerFreq4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textSize="12sp" />
+
+                    <SeekBar
+                        android:id="@+id/mySeekBar4"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:rotation="270" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+                <TextView
+                    android:id="@+id/presetTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="48dp"
+                    android:text="@string/presets"
+                    android:layout_below="@id/linearLayoutEqual"
+                    android:paddingBottom="16dp"
+                    android:textAlignment="center"/>
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/linearLayoutEqual"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="48dp"
+                    android:paddingBottom="16dp"
+                    />
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardEq"
+        android:layout_gravity="center"
+        android:layout_margin="8dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="1dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="16dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="16dp">
+
+
+            <com.marcinmoskala.arcseekbar.ArcSeekBar
+                android:id="@+id/bassSeekBar"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                app:progressBackgroundColor="@color/progress_gray"
+                app:progressColor="@color/colorAccent"
+                app:thumb="@drawable/thumb2" />
+
+            <FrameLayout
+                android:id="@+id/bassSwitchFrame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bassSeekBar"
+                android:layout_alignStart="@id/bassSeekBar"
+                android:layout_alignLeft="@id/bassSeekBar"
+                android:layout_alignEnd="@id/bassSeekBar"
+                android:layout_alignRight="@id/bassSeekBar">
 
                 <Switch
-                    android:id="@+id/switchEnable"
-                    android:layout_width="match_parent"
+                    android:id="@+id/bassSwitch"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="@string/enable_equalizer" />
+                    android:layout_gravity="center" />
+            </FrameLayout>
 
-
-                <LinearLayout
-                    android:id="@+id/linearLayoutEqual"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="32dp"
-                    android:paddingRight="32dp"
-                    android:paddingBottom="16dp">
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/centerFreq0"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textSize="12sp"/>
-
-                        <SeekBar
-                            android:id="@+id/mySeekBar0"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:rotation="270" />
-
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/centerFreq1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textSize="12sp"/>
-
-                        <SeekBar
-                            android:id="@+id/mySeekBar1"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:rotation="270" />
-
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/centerFreq2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textSize="12sp"/>
-
-                        <SeekBar
-                            android:id="@+id/mySeekBar2"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:rotation="270" />
-
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/centerFreq3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textSize="12sp"/>
-
-                        <SeekBar
-                            android:id="@+id/mySeekBar3"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:rotation="270" />
-
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                    <android.support.v7.widget.LinearLayoutCompat
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/centerFreq4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:textSize="12sp"/>
-
-                        <SeekBar
-                            android:id="@+id/mySeekBar4"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
-                            android:layout_gravity="center"
-                            android:rotation="270" />
-
-
-                    </android.support.v7.widget.LinearLayoutCompat>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/presetView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="48dp"
-                    android:paddingRight="48dp"
-                    android:paddingBottom="16dp">
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_weight="2"
-                        android:text="@string/presets" />
-
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
-                </LinearLayout>
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="16dp"
-                android:paddingTop="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.marcinmoskala.arcseekbar.ArcSeekBar
-                        android:id="@+id/bassSeekBar"
-                        android:layout_width="100dp"
-                        android:layout_height="60dp"
-                        app:progressBackgroundColor="@color/progress_gray"
-                        app:progressColor="@color/colorAccent"
-                        app:thumb="@drawable/thumb2" />
-
-                    <Switch
-                        android:id="@+id/bassSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="@string/bass_boost"
-                         />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/loudnessView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.marcinmoskala.arcseekbar.ArcSeekBar
-                        android:id="@+id/volSeekBar"
-                        android:layout_width="100dp"
-                        android:layout_height="60dp"
-                        app:progressBackgroundColor="@color/progress_gray"
-                        app:progressColor="@color/colorAccent"
-                        app:thumb="@drawable/thumb2" />
-
-                    <Switch
-                        android:id="@+id/volSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/volTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:text="@string/loudness"
-                        />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.marcinmoskala.arcseekbar.ArcSeekBar
-                        android:id="@+id/virtualSeekBar"
-                        android:layout_width="100dp"
-                        android:layout_height="60dp"
-                        app:progressBackgroundColor="@color/progress_gray"
-                        app:progressColor="@color/colorAccent"
-                        app:thumb="@drawable/thumb2" />
-
-                    <Switch
-                        android:id="@+id/virtualSwitch"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/textView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/virtualizer"
-                        />
+                android:layout_below="@id/bassSwitchFrame"
+                android:layout_alignStart="@id/bassSeekBar"
+                android:layout_alignLeft="@id/bassSeekBar"
+                android:layout_alignEnd="@id/bassSeekBar"
+                android:layout_alignRight="@id/bassSeekBar"
+                android:gravity="center"
+                android:text="@string/bass_boost" />
 
 
-                </LinearLayout>
-            </LinearLayout>
+            <com.marcinmoskala.arcseekbar.ArcSeekBar
+                android:id="@+id/volSeekBar"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                app:progressBackgroundColor="@color/progress_gray"
+                app:progressColor="@color/colorAccent"
+                app:thumb="@drawable/thumb2" />
 
-        </android.support.v7.widget.CardView>
+            <Switch
+                android:id="@+id/volSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/volSeekBar"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/volTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/volSwitch"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_vertical"
+                android:text="@string/loudness" />
 
 
-    </LinearLayout>
+            <com.marcinmoskala.arcseekbar.ArcSeekBar
+                android:id="@+id/virtualSeekBar"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                app:progressBackgroundColor="@color/progress_gray"
+                app:progressColor="@color/colorAccent"
+                app:thumb="@drawable/thumb2" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/virtualSeekBar"
+                android:layout_alignStart="@id/virtualSeekBar"
+                android:layout_alignLeft="@id/virtualSeekBar"
+                android:layout_alignEnd="@id/virtualSeekBar"
+                android:layout_alignRight="@id/virtualSeekBar">
+
+                <Switch
+                    android:id="@+id/virtualSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bassSwitchFrame"
+                android:layout_alignStart="@id/virtualSeekBar"
+                android:layout_alignLeft="@id/virtualSeekBar"
+                android:layout_alignEnd="@id/virtualSeekBar"
+                android:layout_alignRight="@id/virtualSeekBar"
+                android:gravity="center"
+                android:text="@string/virtualizer" />
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
@@ -309,8 +315,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3247504109469111/1236744025"></com.google.android.gms.ads.AdView>
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-3247504109469111/1236744025">
+
+    </com.google.android.gms.ads.AdView>
 
 </RelativeLayout>
 

@@ -15,7 +15,7 @@ import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.jazibkhan.equalizer.View.MainActivity;
+import com.jazibkhan.equalizer.MainActivity;
 
 /**
  * Created by Jazib on 2/10/2018.
@@ -26,6 +26,7 @@ public class ForegroundService extends Service{
 
     private static final String LOG_TAG = "ForegroundService";
     String CHANNEL_ID="myChannel";
+    EqualizerViewModel equalizerViewModel;
 
 
     @Override
@@ -48,7 +49,7 @@ public class ForegroundService extends Service{
 
             Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.eq_icon)
                     .setContentTitle("Equalizer")
-                    .setContentText("Equilizer is enabled")
+                    .setContentText("Equilizer is enableEq")
                     .setContentIntent(pendingIntent).setPriority(NotificationCompat.PRIORITY_HIGH).setOngoing(true)
                     .build();
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
@@ -70,8 +71,8 @@ public class ForegroundService extends Service{
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Equilizer";
-            String description = "Equilizer is enabled";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            String description = "Equilizer is enableEq";
+            int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             // Register the channel with the system; you can't change the importance

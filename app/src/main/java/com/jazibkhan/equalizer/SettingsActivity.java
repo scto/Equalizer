@@ -6,7 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.jazibkhan.equalizer.View.MainActivity;
+import com.jazibkhan.equalizer.MainActivity;
 
 public class SettingsActivity extends AppCompatActivity {
 
