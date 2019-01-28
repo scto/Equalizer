@@ -21,6 +21,7 @@ public class EqualizerViewModel extends AndroidViewModel{
     private MutableLiveData<Integer> virSlider;
     private MutableLiveData<Integer> bBSlider;
     private MutableLiveData<Integer> loudSlider;
+    private MutableLiveData<Integer> singleSlider;
     private MutableLiveData<ArrayList<Integer>> slider;
     private MutableLiveData<Integer> spinnerPos;
     private MutableLiveData<Boolean> virSwitch;
@@ -37,6 +38,7 @@ public class EqualizerViewModel extends AndroidViewModel{
         bassBoost = EffectInstance.getBassBoostInstanceInstance();
         virtualizer = EffectInstance.getVirtualizerInstance();
         loudnessEnhancer = EffectInstance.getLoudnessEnhancerInstance();
+        slider = new MutableLiveData<>();
         virSlider = new MutableLiveData<>();
         bBSlider = new MutableLiveData<>();
         loudSlider = new MutableLiveData<>();
@@ -47,6 +49,12 @@ public class EqualizerViewModel extends AndroidViewModel{
         eqSwitch = new MutableLiveData<>();
         isCustomSelected = new MutableLiveData<>();
         darkTheme = new MutableLiveData<>();
+        singleSlider = new MutableLiveData<>();
+        ArrayList<Integer> sliders = new ArrayList<>();
+        for(int i=0;i<5;i++){
+            sliders.add(preferenceUtil.getEqSlider(i));
+        }
+        slider.setValue(sliders);
         virSlider.setValue(preferenceUtil.getVirSlider());
         bBSlider.setValue(preferenceUtil.getBBSlider());
         loudSlider.setValue(preferenceUtil.getLoudSlider());
@@ -101,14 +109,23 @@ public class EqualizerViewModel extends AndroidViewModel{
         this.loudSlider.setValue(loudSlider);
         preferenceUtil.setLoudSlider(loudSlider);
     }
+    public MutableLiveData<Integer> getSingleSlider() {
+        return singleSlider;
+    }
+
+    public void setSingleSlider(int singleSlider,int pos) {
+        this.singleSlider.setValue(singleSlider);
+        preferenceUtil.setEqSlider(singleSlider,pos);
+    }
 
     public MutableLiveData<ArrayList<Integer>> getSlider() {
         return slider;
     }
 
-    public void setSlider(ArrayList<Integer> slider,int pos) {
+    public void setSlider(ArrayList<Integer> slider) {
         this.slider.setValue(slider);
-        preferenceUtil.setEqSlider(slider.get(pos),pos);
+        for(int i=0;i<slider.size();i++)
+            preferenceUtil.setEqSlider(slider.get(i),i);
     }
 
     public MutableLiveData<Integer> getSpinnerPos() {
