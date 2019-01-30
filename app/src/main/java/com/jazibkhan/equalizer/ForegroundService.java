@@ -49,7 +49,7 @@ public class ForegroundService extends Service{
 
             Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.eq_icon)
                     .setContentTitle("Equalizer")
-                    .setContentText("Equilizer is enableEq")
+                    .setContentText("Equilizer is enabled")
                     .setContentIntent(pendingIntent).setPriority(NotificationCompat.PRIORITY_HIGH).setOngoing(true)
                     .build();
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
@@ -71,7 +71,7 @@ public class ForegroundService extends Service{
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Equilizer";
-            String description = "Equilizer is enableEq";
+            String description = "Equilizer is enabled";
             int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);

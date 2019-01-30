@@ -1,19 +1,14 @@
 package com.jazibkhan.equalizer;
 
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
 import android.media.audiofx.LoudnessEnhancer;
 import android.media.audiofx.Virtualizer;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,23 +19,18 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.kobakei.ratethisapp.RateThisApp;
 import com.marcinmoskala.arcseekbar.ArcSeekBar;
 import com.marcinmoskala.arcseekbar.ProgressListener;
-
 import java.util.ArrayList;
-import java.util.Observable;
 
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, Switch.OnCheckedChangeListener {
@@ -49,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     static final int MAX_SLIDERS = 5; // Must match the XML layout
     private static final String TAG = "MainActivity";
     public static final String AD_ID = "ca-app-pub-3247504109469111~8021644228";
-    public static final String TEST_DEVICE = "9CAE76FEB9BFA8EA6723EEED1660711A";
+    public static final String TEST_DEVICE = "59DFE37FE323A9EA004A20E6FED19D38";
     Equalizer equalizer = null;
     BassBoost bassBoost = null;
     Virtualizer virtualizer = null;
@@ -75,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         equalizerViewModel = ViewModelProviders.of(this).get(EqualizerViewModel.class);
+
         setContentView(R.layout.activity_main);
         RateThisApp.onCreate(this);
         RateThisApp.showRateDialogIfNeeded(this);
@@ -166,31 +157,38 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         virtualSlider.setOnProgressChangedListener(new ProgressListener() {
             @Override
             public void invoke(int j) {
+                if(virtualizer.getRoundedStrength()!=(short)j){
+                    equalizerViewModel.setVirSlider(j);
+                }
                 try {
                     virtualizer.setStrength((short) j);
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }
-                equalizerViewModel.setVirSlider(j);
             }
         });
 
         bassSlider.setOnProgressChangedListener(new ProgressListener() {
             @Override
             public void invoke(int i) {
+                if(bassBoost.getRoundedStrength()!=(short)i){
+                    equalizerViewModel.setBBSlider(i);
+                }
                 try {
                     bassBoost.setStrength((short) i);
                 } catch (Throwable e) {
                     e.printStackTrace();
                 }
-                equalizerViewModel.setBBSlider(i);
             }
         });
 
         loudSlider.setOnProgressChangedListener(new ProgressListener() {
             @Override
             public void invoke(int j) {
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if(loudnessEnhancer.getTargetGain()!=j)
+                        equalizerViewModel.setLoudSlider(j);
                     try {
                         loudnessEnhancer.setTargetGain(j);
                     } catch (Throwable e) {
@@ -198,82 +196,43 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                         e.printStackTrace();
                     }
                 }
-                equalizerViewModel.setLoudSlider(j);
             }
         });
+
+
+
         enableVirtual.setOnCheckedChangeListener(this);
         enableBass.setOnCheckedChangeListener(this);
         enableLoud.setOnCheckedChangeListener(this);
         enableEq.setOnCheckedChangeListener(this);
 
-        equalizerViewModel.getBBSlider().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer integer) {
-                bassSlider.setProgress(integer);
-            }
-        });
-        equalizerViewModel.getLoudSlider().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer integer) {
-                loudSlider.setProgress(integer);
-            }
-        });
-        equalizerViewModel.getVirSlider().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer integer) {
-                virtualSlider.setProgress(integer);
-            }
-        });
-        equalizerViewModel.getSlider().observe(this, new Observer<ArrayList<Integer>>() {
-            @Override
-            public void onChanged(@Nullable ArrayList<Integer> integers) {
-                for (int i = 0; i < integers.size(); i++) {
-                    sliders[i].setProgress(integers.get(i));
-                }
-            }
-        });
-        equalizerViewModel.getbBSwitch().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                enableBass.setChecked(aBoolean);
-            }
-        });
-        equalizerViewModel.getEqSwitch().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                enableEq.setChecked(aBoolean);
-            }
-        });
-        equalizerViewModel.getLoudSwitch().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                enableLoud.setChecked(aBoolean);
-            }
-        });
-        equalizerViewModel.getVirSwitch().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                enableVirtual.setChecked(aBoolean);
-            }
-        });
+        enableEq.setChecked(equalizerViewModel.getEqSwitch());
+        enableBass.setChecked(equalizerViewModel.getbBSwitch());
+        enableLoud.setChecked(equalizerViewModel.getLoudSwitch());
+        enableVirtual.setChecked(equalizerViewModel.getVirSwitch());
+        bassSlider.setProgress(equalizerViewModel.getBBSlider());
+        virtualSlider.setProgress(equalizerViewModel.getVirSlider());
+        loudSlider.setProgress((int)equalizerViewModel.getLoudSlider());
+        for(int i=0;i<5;i++) {
+            int level = (equalizerViewModel.getSlider(i) - minLevel) * 100 / (maxLevel - minLevel);
+            Log.d(TAG, "onCreate: VALUE OF "+i+" is "+equalizerViewModel.getSlider(i));
+            sliders[i].setProgress(level);
+        }
+
         equalizerViewModel.getDarkTheme().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
                 if (aBoolean == true) {
                     setTheme(R.style.AppTheme_Dark);
                 } else setTheme(R.style.AppTheme);
-            }
-        });
-        equalizerViewModel.getIsCustomSelected().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
 
             }
         });
+
         equalizerViewModel.getSpinnerPos().observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable Integer integer) {
-                spinner.setSelection(integer);
+         //       spinner.setSelection(integer);
             }
         });
     }
@@ -299,13 +258,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 bassSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.progress_gray));
 
         } else if (buttonView == enableLoud) {
-            Toast.makeText(getApplicationContext(), R.string.warning,
-                    Toast.LENGTH_SHORT).show();
             loudnessEnhancer.setEnabled(isChecked);
             loudSlider.setEnabled(isChecked);
             equalizerViewModel.setLoudSwitch(isChecked);
-            if (isChecked)
+            if (isChecked){
                 loudSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
+                Toast.makeText(getApplicationContext(), R.string.warning,
+                        Toast.LENGTH_SHORT).show();
+            }
             else
                 loudSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.progress_gray));
 
@@ -333,15 +293,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int level, boolean b) {
-        int newLevel = minLevel + (maxLevel - minLevel) * level / 100;
-        for (int i = 0; i < numSliders; i++) {
+        for (int i = 0; i < 5; i++) {
             if (sliders[i] == seekBar) {
-                try {
+
+                    int newLevel = minLevel + (maxLevel - minLevel) * level / 100;
+                    Log.d(TAG, "onProgressChanged: SETTING VALUE OF "+i+" is "+newLevel);
+                    equalizerViewModel.setSlider(newLevel, i);
                     equalizer.setBandLevel((short) i, (short) newLevel);
-                    equalizerViewModel.setSingleSlider(newLevel,i);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                Log.d(TAG, "onProgressChanged: BAND VALUE = "+equalizer.getBandLevel((short)i));
                 break;
             }
         }

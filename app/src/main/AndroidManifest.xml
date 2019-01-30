@@ -38,12 +38,17 @@
         <service android:name=".ForegroundService" />
 
         <activity
-            android:name=".View.AboutActivity"
-            android:label="About"></activity>
+            android:name=".AboutActivity"
+            android:label="About">
+
+        </activity>
         <activity android:name=".SettingsActivity"
             android:label="Settings"
-            android:parentActivityName=".View.MainActivity">
+            android:parentActivityName=".MainActivity">
         </activity>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3247504109469111~8021644228"/>
     </application>
 
 </manifest>

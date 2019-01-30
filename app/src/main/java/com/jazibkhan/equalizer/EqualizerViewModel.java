@@ -8,27 +8,29 @@ import android.media.audiofx.Equalizer;
 import android.media.audiofx.LoudnessEnhancer;
 import android.media.audiofx.Virtualizer;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 
 public class EqualizerViewModel extends AndroidViewModel{
+    private static final String TAG = "EqualizerViewModel";
     private PreferenceUtil preferenceUtil;
     private Equalizer equalizer;
     private BassBoost bassBoost;
     private Virtualizer virtualizer;
     private LoudnessEnhancer loudnessEnhancer;
-    private MutableLiveData<Integer> virSlider;
-    private MutableLiveData<Integer> bBSlider;
-    private MutableLiveData<Integer> loudSlider;
+    private Integer virSlider;
+    private Integer bBSlider;
+    private Float loudSlider;
     private MutableLiveData<Integer> singleSlider;
-    private MutableLiveData<ArrayList<Integer>> slider;
+    private int slider[];
     private MutableLiveData<Integer> spinnerPos;
-    private MutableLiveData<Boolean> virSwitch;
-    private MutableLiveData<Boolean> bBSwitch;
-    private MutableLiveData<Boolean> loudSwitch;
-    private MutableLiveData<Boolean> eqSwitch;
-    private MutableLiveData<Boolean> isCustomSelected;
+    private Boolean virSwitch;
+    private Boolean bBSwitch;
+    private Boolean loudSwitch;
+    private Boolean eqSwitch;
+    private Boolean isCustomSelected;
     private MutableLiveData<Boolean> darkTheme;
 
     public EqualizerViewModel(@NonNull Application application) {
@@ -38,32 +40,22 @@ public class EqualizerViewModel extends AndroidViewModel{
         bassBoost = EffectInstance.getBassBoostInstanceInstance();
         virtualizer = EffectInstance.getVirtualizerInstance();
         loudnessEnhancer = EffectInstance.getLoudnessEnhancerInstance();
-        slider = new MutableLiveData<>();
-        virSlider = new MutableLiveData<>();
-        bBSlider = new MutableLiveData<>();
-        loudSlider = new MutableLiveData<>();
-        spinnerPos = new MutableLiveData<>();
-        virSwitch = new MutableLiveData<>();
-        bBSwitch = new MutableLiveData<>();
-        loudSwitch = new MutableLiveData<>();
-        eqSwitch = new MutableLiveData<>();
-        isCustomSelected = new MutableLiveData<>();
         darkTheme = new MutableLiveData<>();
         singleSlider = new MutableLiveData<>();
-        ArrayList<Integer> sliders = new ArrayList<>();
-        for(int i=0;i<5;i++){
-            sliders.add(preferenceUtil.getEqSlider(i));
+        spinnerPos = new MutableLiveData<>();
+        slider = new int[5];
+        for(int i=0;i<5;i++) {
+            slider[i]=(preferenceUtil.getEqSlider(i));
         }
-        slider.setValue(sliders);
-        virSlider.setValue(preferenceUtil.getVirSlider());
-        bBSlider.setValue(preferenceUtil.getBBSlider());
-        loudSlider.setValue(preferenceUtil.getLoudSlider());
+        virSlider=preferenceUtil.getVirSlider();
+        bBSlider=(preferenceUtil.getBBSlider());
+        loudSlider=(preferenceUtil.getLoudSlider());
         spinnerPos.setValue(preferenceUtil.getSpinnerPos());
-        virSwitch.setValue(preferenceUtil.getVirSwitch());
-        bBSwitch.setValue(preferenceUtil.getBBSwitch());
-        loudSwitch.setValue(preferenceUtil.getLoudSwitch());
-        eqSwitch.setValue(preferenceUtil.getEqSwitch());
-        isCustomSelected.setValue(preferenceUtil.getIsCustomSelected());
+        virSwitch=(preferenceUtil.getVirSwitch());
+        bBSwitch=(preferenceUtil.getBBSwitch());
+        loudSwitch=(preferenceUtil.getLoudSwitch());
+        eqSwitch=(preferenceUtil.getEqSwitch());
+        isCustomSelected=(preferenceUtil.getIsCustomSelected());
         darkTheme.setValue(preferenceUtil.getDarkTheme());
     }
 
@@ -83,49 +75,40 @@ public class EqualizerViewModel extends AndroidViewModel{
         return loudnessEnhancer;
     }
 
-    public MutableLiveData<Integer> getVirSlider() {
+    public int getVirSlider() {
         return virSlider;
     }
 
     public void setVirSlider(int virSlider) {
-        this.virSlider.setValue(virSlider);
+        this.virSlider=(virSlider);
         preferenceUtil.setVirSlider(virSlider);
     }
 
-    public MutableLiveData<Integer> getBBSlider() {
+    public int getBBSlider() {
         return bBSlider;
     }
 
     public void setBBSlider(int bBSlider) {
-        this.bBSlider.setValue(bBSlider);
+        this.bBSlider=(bBSlider);
         preferenceUtil.setBBSlider(bBSlider);
     }
 
-    public MutableLiveData<Integer> getLoudSlider() {
+    public float getLoudSlider() {
         return loudSlider;
     }
 
-    public void setLoudSlider(int loudSlider) {
-        this.loudSlider.setValue(loudSlider);
+    public void setLoudSlider(float loudSlider) {
+        this.loudSlider=(loudSlider);
         preferenceUtil.setLoudSlider(loudSlider);
     }
-    public MutableLiveData<Integer> getSingleSlider() {
-        return singleSlider;
+
+    public int getSlider(int pos) {
+        return slider[pos];
     }
 
-    public void setSingleSlider(int singleSlider,int pos) {
-        this.singleSlider.setValue(singleSlider);
-        preferenceUtil.setEqSlider(singleSlider,pos);
-    }
-
-    public MutableLiveData<ArrayList<Integer>> getSlider() {
-        return slider;
-    }
-
-    public void setSlider(ArrayList<Integer> slider) {
-        this.slider.setValue(slider);
-        for(int i=0;i<slider.size();i++)
-            preferenceUtil.setEqSlider(slider.get(i),i);
+    public void setSlider(int slider, int pos) {
+        this.slider[pos]=(slider);
+        preferenceUtil.setEqSlider(slider,pos);
     }
 
     public MutableLiveData<Integer> getSpinnerPos() {
@@ -137,48 +120,48 @@ public class EqualizerViewModel extends AndroidViewModel{
         preferenceUtil.setSpinnerPos(spinnerPos);
     }
 
-    public MutableLiveData<Boolean> getVirSwitch() {
+    public boolean getVirSwitch() {
         return virSwitch;
     }
 
     public void setVirSwitch(boolean virSwitch) {
-        this.virSwitch.setValue(virSwitch);
+        this.virSwitch=(virSwitch);
         preferenceUtil.setVirSwitch(virSwitch);
     }
 
-    public MutableLiveData<Boolean> getbBSwitch() {
+    public boolean getbBSwitch() {
         return bBSwitch;
     }
 
     public void setbBSwitch(boolean bBSwitch) {
-        this.bBSwitch.setValue(bBSwitch);
+        this.bBSwitch=(bBSwitch);
         preferenceUtil.setBBSwitch(bBSwitch);
     }
 
-    public MutableLiveData<Boolean> getLoudSwitch() {
+    public boolean getLoudSwitch() {
         return loudSwitch;
     }
 
     public void setLoudSwitch(boolean loudSwitch) {
-        this.loudSwitch.setValue(loudSwitch);
+        this.loudSwitch=(loudSwitch);
         preferenceUtil.setLoudSwitch(loudSwitch);
     }
 
-    public MutableLiveData<Boolean> getEqSwitch() {
+    public boolean getEqSwitch() {
         return eqSwitch;
     }
 
     public void setEqSwitch(boolean eqSwitch) {
-        this.eqSwitch.setValue(eqSwitch);
+        this.eqSwitch=(eqSwitch);
         preferenceUtil.setEqSwitch(eqSwitch);
     }
 
-    public MutableLiveData<Boolean> getIsCustomSelected() {
+    public boolean getIsCustomSelected() {
         return isCustomSelected;
     }
 
     public void setIsCustomSelected(boolean isCustomSelected) {
-        this.isCustomSelected.setValue(isCustomSelected);
+        this.isCustomSelected=(isCustomSelected);
         preferenceUtil.setIsCustomSelected(isCustomSelected);
     }
 

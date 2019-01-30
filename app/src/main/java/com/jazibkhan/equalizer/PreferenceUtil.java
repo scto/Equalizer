@@ -4,8 +4,10 @@ import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 public class PreferenceUtil {
+    private static final String TAG = "PreferenceUtil";
     private static final String SPINNER_POS = "spinnerpos";
     private static final String EQSWITCH = "eqswitch";
     private static final String BBSWITCH = "bbswitch";
@@ -69,14 +71,14 @@ public class PreferenceUtil {
         return mPref.getInt(VIRSLIDER, 0);
     }
 
-    public void setLoudSlider(final int value) {
+    public void setLoudSlider(final float value) {
         final SharedPreferences.Editor editor = mPref.edit();
-        editor.putInt(LOUDSLIDER, value);
+        editor.putFloat(LOUDSLIDER, value);
         editor.apply();
     }
 
-    public final int getLoudSlider() {
-        return mPref.getInt(LOUDSLIDER, 0);
+    public final float getLoudSlider() {
+        return mPref.getFloat(LOUDSLIDER, 0);
     }
 
     public void setEqSlider(final int value, int pos) {
@@ -84,14 +86,19 @@ public class PreferenceUtil {
         switch (pos) {
             case 0:
                 editor.putInt(SLIDER0, value);
+                break;
             case 1:
                 editor.putInt(SLIDER1, value);
+                break;
             case 2:
                 editor.putInt(SLIDER2, value);
+                break;
             case 3:
                 editor.putInt(SLIDER3, value);
+                break;
             case 4:
                 editor.putInt(SLIDER4, value);
+                break;
         }
         editor.apply();
     }
@@ -109,7 +116,7 @@ public class PreferenceUtil {
             case 4:
                 return mPref.getInt(SLIDER4, 0);
         }
-        return mPref.getInt(LOUDSLIDER, 0);
+        return 0;
     }
 
     public void setEqSwitch(final boolean value) {
