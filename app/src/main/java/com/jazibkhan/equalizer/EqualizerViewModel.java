@@ -23,9 +23,8 @@ public class EqualizerViewModel extends AndroidViewModel{
     private Integer virSlider;
     private Integer bBSlider;
     private Float loudSlider;
-    private MutableLiveData<Integer> singleSlider;
     private int slider[];
-    private MutableLiveData<Integer> spinnerPos;
+    private int spinnerPos;
     private Boolean virSwitch;
     private Boolean bBSwitch;
     private Boolean loudSwitch;
@@ -41,8 +40,6 @@ public class EqualizerViewModel extends AndroidViewModel{
         virtualizer = EffectInstance.getVirtualizerInstance();
         loudnessEnhancer = EffectInstance.getLoudnessEnhancerInstance();
         darkTheme = new MutableLiveData<>();
-        singleSlider = new MutableLiveData<>();
-        spinnerPos = new MutableLiveData<>();
         slider = new int[5];
         for(int i=0;i<5;i++) {
             slider[i]=(preferenceUtil.getEqSlider(i));
@@ -50,7 +47,7 @@ public class EqualizerViewModel extends AndroidViewModel{
         virSlider=preferenceUtil.getVirSlider();
         bBSlider=(preferenceUtil.getBBSlider());
         loudSlider=(preferenceUtil.getLoudSlider());
-        spinnerPos.setValue(preferenceUtil.getSpinnerPos());
+        spinnerPos=(preferenceUtil.getSpinnerPos());
         virSwitch=(preferenceUtil.getVirSwitch());
         bBSwitch=(preferenceUtil.getBBSwitch());
         loudSwitch=(preferenceUtil.getLoudSwitch());
@@ -111,12 +108,12 @@ public class EqualizerViewModel extends AndroidViewModel{
         preferenceUtil.setEqSlider(slider,pos);
     }
 
-    public MutableLiveData<Integer> getSpinnerPos() {
+    public int getSpinnerPos() {
         return spinnerPos;
     }
 
     public void setSpinnerPos(int spinnerPos) {
-        this.spinnerPos.setValue(spinnerPos);
+        this.spinnerPos=(spinnerPos);
         preferenceUtil.setSpinnerPos(spinnerPos);
     }
 

@@ -134,17 +134,26 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d(TAG, "onItemSelected: CALLED");
                 if (i < eqPreset.size() - 1) {
                     try {
                         equalizer.usePreset((short) i);
                         equalizerViewModel.setSpinnerPos(i);
                         equalizerViewModel.setIsCustomSelected(false);
+                        for(int j=0;j<5;j++) {
+                            int level = (equalizer.getBandLevel((short) j) - minLevel) * 100 / (maxLevel - minLevel);
+                            sliders[j].setProgress(level);
+                        }
                     } catch (Throwable e) {
                         disablePreset();
                     }
                 } else {
                     equalizerViewModel.setIsCustomSelected(true);
                     equalizerViewModel.setSpinnerPos(i);
+                    for(int j=0;j<5;j++) {
+                        int level = (equalizerViewModel.getSlider(j) - minLevel) * 100 / (maxLevel - minLevel);
+                        sliders[j].setProgress(level);
+                    }
                 }
             }
 
@@ -205,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         enableBass.setOnCheckedChangeListener(this);
         enableLoud.setOnCheckedChangeListener(this);
         enableEq.setOnCheckedChangeListener(this);
-
+        spinner.setSelection(equalizerViewModel.getSpinnerPos());
         enableEq.setChecked(equalizerViewModel.getEqSwitch());
         enableBass.setChecked(equalizerViewModel.getbBSwitch());
         enableLoud.setChecked(equalizerViewModel.getLoudSwitch());
@@ -215,9 +224,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         loudSlider.setProgress((int)equalizerViewModel.getLoudSlider());
         for(int i=0;i<5;i++) {
             int level = (equalizerViewModel.getSlider(i) - minLevel) * 100 / (maxLevel - minLevel);
-            Log.d(TAG, "onCreate: VALUE OF "+i+" is "+equalizerViewModel.getSlider(i));
             sliders[i].setProgress(level);
         }
+
 
         equalizerViewModel.getDarkTheme().observe(this, new Observer<Boolean>() {
             @Override
@@ -226,13 +235,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                     setTheme(R.style.AppTheme_Dark);
                 } else setTheme(R.style.AppTheme);
 
-            }
-        });
-
-        equalizerViewModel.getSpinnerPos().observe(this, new Observer<Integer>() {
-            @Override
-            public void onChanged(@Nullable Integer integer) {
-         //       spinner.setSelection(integer);
             }
         });
     }
@@ -295,12 +297,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void onProgressChanged(SeekBar seekBar, int level, boolean b) {
         for (int i = 0; i < 5; i++) {
             if (sliders[i] == seekBar) {
-
-                    int newLevel = minLevel + (maxLevel - minLevel) * level / 100;
-                    Log.d(TAG, "onProgressChanged: SETTING VALUE OF "+i+" is "+newLevel);
+                int newLevel = minLevel + (maxLevel - minLevel) * level / 100;
+                equalizer.setBandLevel((short) i, (short) newLevel);
+                if(equalizerViewModel.getIsCustomSelected())
                     equalizerViewModel.setSlider(newLevel, i);
-                    equalizer.setBandLevel((short) i, (short) newLevel);
-                Log.d(TAG, "onProgressChanged: BAND VALUE = "+equalizer.getBandLevel((short)i));
                 break;
             }
         }
