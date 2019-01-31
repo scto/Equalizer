@@ -66,7 +66,7 @@ public class AboutActivity extends AppCompatActivity {
                 addGroup("Connect with us")
                 .addEmail("jazib27@hotmail.com")
                 .addPlayStore("com.jazibkhan.equalizer")
-                .addGitHub("JazibOfficial/Equalizer")
+                .addGitHub("j4zib/Equalizer")
                 .addItem(license).addItem(privacyP)
                 .create();
 

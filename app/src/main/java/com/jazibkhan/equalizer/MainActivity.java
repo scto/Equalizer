@@ -1,18 +1,17 @@
 package com.jazibkhan.equalizer;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
 import android.media.audiofx.LoudnessEnhancer;
 import android.media.audiofx.Virtualizer;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -35,7 +33,7 @@ import com.marcinmoskala.arcseekbar.ProgressListener;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, Switch.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, Switch.OnCheckedChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
 
     EqualizerViewModel equalizerViewModel;
     static final int MAX_SLIDERS = 5; // Must match the XML layout
@@ -54,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     SeekBar sliders[] = new SeekBar[MAX_SLIDERS];
     ArcSeekBar bassSlider, virtualSlider, loudSlider;
     TextView sliderLabels[] = new TextView[MAX_SLIDERS];
+    TextView loudSliderText;
     int numSliders = 0;
     ArrayList<String> eqPreset;
     int spinnerPos = 0;
@@ -66,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         super.onCreate(savedInstanceState);
         equalizerViewModel = ViewModelProviders.of(this).get(EqualizerViewModel.class);
 
+        if (PreferenceUtil.getInstance(this).getDarkTheme()) {
+            setTheme(R.style.AppTheme_Dark);
+        } else setTheme(R.style.AppTheme);
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
         setContentView(R.layout.activity_main);
         RateThisApp.onCreate(this);
         RateThisApp.showRateDialogIfNeeded(this);
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         AdRequest adRequest = new AdRequest.Builder().addTestDevice(TEST_DEVICE).build();
         mAdView.loadAd(adRequest);
 
-
+        loudSliderText = findViewById(R.id.volTextView);
         enableEq = findViewById(R.id.switchEnable);
         enableEq.setChecked(true);
         spinner = findViewById(R.id.spinner);
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             enableLoud.setChecked(false);
             loudSlider.setVisibility(View.GONE);
             enableLoud.setVisibility(View.GONE);
+            loudSliderText.setVisibility(View.GONE);
         }
         numSliders = equalizer.getNumberOfBands();
         short r[] = equalizer.getBandLevelRange();
@@ -134,7 +138,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d(TAG, "onItemSelected: CALLED");
                 if (i < eqPreset.size() - 1) {
                     try {
                         equalizer.usePreset((short) i);
@@ -225,17 +228,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             int level = (equalizerViewModel.getSlider(i) - minLevel) * 100 / (maxLevel - minLevel);
             sliders[i].setProgress(level);
         }
-
-
-        equalizerViewModel.getDarkTheme().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean == true) {
-                    setTheme(R.style.AppTheme_Dark);
-                } else setTheme(R.style.AppTheme);
-
-            }
-        });
     }
 
 
@@ -259,7 +251,8 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 bassSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.progress_gray));
 
         } else if (buttonView == enableLoud) {
-            loudnessEnhancer.setEnabled(isChecked);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                loudnessEnhancer.setEnabled(isChecked);
             loudSlider.setEnabled(isChecked);
             equalizerViewModel.setLoudSwitch(isChecked);
             if (isChecked) {
@@ -300,6 +293,19 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 if (equalizerViewModel.getIsCustomSelected())
                     equalizerViewModel.setSlider(newLevel, i);
                 break;
+            }
+        }
+    }
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        if(s.equals("dark_theme")){
+            if(sharedPreferences.getBoolean("dark_theme",false)){
+                setTheme(R.style.AppTheme_Dark);
+                MainActivity.this.recreate();
+            }
+            else {
+                setTheme(R.style.AppTheme);
+                MainActivity.this.recreate();
             }
         }
     }
@@ -362,5 +368,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             stopIntent.setAction(Constants.ACTION.STOPFOREGROUND_ACTION);
             startService(stopIntent);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 }

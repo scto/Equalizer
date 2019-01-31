@@ -54,6 +54,7 @@ public class EqualizerViewModel extends AndroidViewModel{
         eqSwitch=(preferenceUtil.getEqSwitch());
         isCustomSelected=(preferenceUtil.getIsCustomSelected());
         darkTheme.setValue(preferenceUtil.getDarkTheme());
+
     }
 
     public Equalizer getEqualizer() {

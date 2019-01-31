@@ -192,7 +192,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cardEq"
         android:layout_gravity="center"
-        android:layout_margin="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         card_view:cardCornerRadius="4dp"
         card_view:cardElevation="1dp">
 

@@ -6,6 +6,7 @@
         android:summaryOff="Light Theme Enabled"
         android:summaryOn="Dark Theme Enabled"
         android:title="Dark Theme"
+        android:id="@+id/darkPref"
         />
 
 </PreferenceScreen>
