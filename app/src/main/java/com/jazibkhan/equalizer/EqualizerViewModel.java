@@ -30,7 +30,7 @@ public class EqualizerViewModel extends AndroidViewModel{
     private Boolean loudSwitch;
     private Boolean eqSwitch;
     private Boolean isCustomSelected;
-    private MutableLiveData<Boolean> darkTheme;
+    private boolean darkTheme;
 
     public EqualizerViewModel(@NonNull Application application) {
         super(application);
@@ -39,7 +39,6 @@ public class EqualizerViewModel extends AndroidViewModel{
         bassBoost = EffectInstance.getBassBoostInstanceInstance();
         virtualizer = EffectInstance.getVirtualizerInstance();
         loudnessEnhancer = EffectInstance.getLoudnessEnhancerInstance();
-        darkTheme = new MutableLiveData<>();
         slider = new int[5];
         for(int i=0;i<5;i++) {
             slider[i]=(preferenceUtil.getEqSlider(i));
@@ -53,7 +52,7 @@ public class EqualizerViewModel extends AndroidViewModel{
         loudSwitch=(preferenceUtil.getLoudSwitch());
         eqSwitch=(preferenceUtil.getEqSwitch());
         isCustomSelected=(preferenceUtil.getIsCustomSelected());
-        darkTheme.setValue(preferenceUtil.getDarkTheme());
+        darkTheme=(preferenceUtil.getDarkTheme());
 
     }
 
@@ -163,12 +162,11 @@ public class EqualizerViewModel extends AndroidViewModel{
         preferenceUtil.setIsCustomSelected(isCustomSelected);
     }
 
-    public MutableLiveData<Boolean> getDarkTheme() {
+    public boolean getDarkTheme() {
         return darkTheme;
     }
 
     public void setDarkTheme(boolean darkTheme) {
-        this.darkTheme.setValue(darkTheme);
-        preferenceUtil.setDarkTheme(darkTheme);
+        this.darkTheme=(darkTheme);
     }
 }

@@ -3,6 +3,7 @@ package com.jazibkhan.equalizer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
 import android.media.audiofx.LoudnessEnhancer;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -64,11 +66,15 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         super.onCreate(savedInstanceState);
         equalizerViewModel = ViewModelProviders.of(this).get(EqualizerViewModel.class);
 
-        if (PreferenceUtil.getInstance(this).getDarkTheme()) {
+        if (equalizerViewModel.getDarkTheme()) {
             setTheme(R.style.AppTheme_Dark);
         } else setTheme(R.style.AppTheme);
+
         PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         RateThisApp.onCreate(this);
         RateThisApp.showRateDialogIfNeeded(this);
 
@@ -106,6 +112,21 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         eqPreset = new ArrayList<>();
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eqPreset);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        bassSlider.setProgressBackgroundWidth(4f);
+        loudSlider.setProgressBackgroundWidth(4f);
+        virtualSlider.setProgressBackgroundWidth(4f);
+
+        if(equalizerViewModel.getDarkTheme()){
+            bassSlider.setProgressBackgroundColor(ContextCompat.getColor(this,R.color.progress_gray_dark));
+            loudSlider.setProgressBackgroundColor(ContextCompat.getColor(this,R.color.progress_gray_dark));
+            virtualSlider.setProgressBackgroundColor(ContextCompat.getColor(this,R.color.progress_gray_dark));
+        }
+
+        else{
+            bassSlider.setProgressBackgroundColor(ContextCompat.getColor(this,R.color.progress_gray));
+            loudSlider.setProgressBackgroundColor(ContextCompat.getColor(this,R.color.progress_gray));
+            virtualSlider.setProgressBackgroundColor(ContextCompat.getColor(this,R.color.progress_gray));
+        }
 
         equalizer = equalizerViewModel.getEqualizer();
         bassBoost = equalizerViewModel.getBassBoost();
@@ -247,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             if (isChecked)
                 bassSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
             else
-                bassSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.progress_gray));
+                bassSlider.setProgressColor(bassSlider.getProgressBackgroundColor());
 
         } else if (buttonView == enableLoud) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
@@ -259,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 Toast.makeText(getApplicationContext(), R.string.warning,
                         Toast.LENGTH_SHORT).show();
             } else
-                loudSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.progress_gray));
+                loudSlider.setProgressColor(bassSlider.getProgressBackgroundColor());
 
         } else if (buttonView == enableVirtual) {
             virtualizer.setEnabled(isChecked);
@@ -268,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             if (isChecked)
                 virtualSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
             else
-                virtualSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.progress_gray));
+                virtualSlider.setProgressColor(bassSlider.getProgressBackgroundColor());
         }
         serviceChecker();
     }
@@ -298,12 +319,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         if(s.equals("dark_theme")){
-            if(sharedPreferences.getBoolean("dark_theme",false)){
+            if(sharedPreferences.getBoolean("dark_theme",true)){
                 setTheme(R.style.AppTheme_Dark);
+                equalizerViewModel.setDarkTheme(true);
                 MainActivity.this.recreate();
             }
             else {
                 setTheme(R.style.AppTheme);
+                equalizerViewModel.setDarkTheme(false);
                 MainActivity.this.recreate();
             }
         }

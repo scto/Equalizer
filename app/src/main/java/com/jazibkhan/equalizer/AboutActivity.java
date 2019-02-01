@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.AndroidResources;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.jazibkhan.equalizer.LicensesDialogFragment;
@@ -31,10 +33,13 @@ public class AboutActivity extends AppCompatActivity {
             setTheme(R.style.AppTheme);
             //MainActivity.this.recreate();
         }
-
         setContentView(R.layout.activity_about);
+        Toolbar toolbar =  findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = this.getSupportActionBar();
+        if(actionBar!=null)
+            actionBar.setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Element license = new Element();
         license.setTitle("Open Source Licenses");

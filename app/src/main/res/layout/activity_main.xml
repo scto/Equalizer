@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/toolbar"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        >
+    </android.support.v7.widget.Toolbar>
+
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/cardEq"
@@ -11,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="8dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="1dp">
+        android:layout_below="@id/toolbar"
+        >
 
 
         <RelativeLayout
@@ -193,9 +204,7 @@
         android:layout_below="@id/cardEq"
         android:layout_gravity="center"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        card_view:cardCornerRadius="4dp"
-        card_view:cardElevation="1dp">
+        android:layout_marginRight="8dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -212,7 +221,8 @@
                 android:layout_height="60dp"
                 app:progressBackgroundColor="@color/progress_gray"
                 app:progressColor="@color/colorAccent"
-                app:thumb="@drawable/thumb2" />
+                app:thumb="@drawable/thumb2"
+                />
 
             <FrameLayout
                 android:id="@+id/bassSwitchFrame"
@@ -251,7 +261,8 @@
                 android:layout_centerHorizontal="true"
                 app:progressBackgroundColor="@color/progress_gray"
                 app:progressColor="@color/colorAccent"
-                app:thumb="@drawable/thumb2" />
+                app:thumb="@drawable/thumb2"
+                />
 
             <Switch
                 android:id="@+id/volSwitch"
@@ -278,7 +289,8 @@
                 android:layout_alignParentRight="true"
                 app:progressBackgroundColor="@color/progress_gray"
                 app:progressColor="@color/colorAccent"
-                app:thumb="@drawable/thumb2" />
+                app:thumb="@drawable/thumb2"
+                />
 
             <FrameLayout
                 android:layout_width="wrap_content"

@@ -176,7 +176,7 @@ public class PreferenceUtil {
     }
 
     public final boolean getDarkTheme() {
-        return mPref.getBoolean(DARK_THEME, false);
+        return mPref.getBoolean(DARK_THEME, true);
     }
 
     public final boolean hasKey() {
