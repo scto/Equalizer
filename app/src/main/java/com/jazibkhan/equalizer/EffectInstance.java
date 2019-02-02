@@ -16,31 +16,31 @@ public class EffectInstance extends Application{
     private static volatile BassBoost bassBoostInstance;
     private static volatile Virtualizer virtualizerInstance;
     private static volatile LoudnessEnhancer loudnessEnhancerInstance;
+    public static int max = Integer.MAX_VALUE;
 
     private static final String TAG = "EffectInstance";
     @Override
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: EFFECTINSTANCE CREATED");
-
     }
 
 
     static Equalizer getEqualizerInstance(){
         if (equalizerInstance == null) {
-            equalizerInstance = new Equalizer(100,0);
+            equalizerInstance = new Equalizer(max,0);
         }
         return equalizerInstance;
     }
     static BassBoost getBassBoostInstance(){
         if (bassBoostInstance == null) {
-            bassBoostInstance = new BassBoost(100,0);
+            bassBoostInstance = new BassBoost(max,0);
         }
         return bassBoostInstance;
     }
     static Virtualizer getVirtualizerInstance(){
         if (virtualizerInstance == null) {
-            virtualizerInstance = new Virtualizer(100,0);
+            virtualizerInstance = new Virtualizer(max,0);
         }
         return virtualizerInstance;
     }
