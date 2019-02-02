@@ -24,6 +24,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -111,9 +112,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         eqPreset = new ArrayList<>();
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, eqPreset);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        bassSlider.setArcWidth(4);
-//        loudSlider.setProgressBackgroundWidth(4f);
-//        virtualSlider.setProgressBackgroundWidth(4f);
+
 
         if (equalizerViewModel.getDarkTheme()) {
             bassSlider.setProgressBackgroundColor(ContextCompat.getColor(this, R.color.progress_gray_dark));
@@ -208,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 }
             }
         });
-        virtualSlider.setOnProgressChangedListener(new ProgressListener() {
+        loudSlider.setOnProgressChangedListener(new ProgressListener() {
             @Override
             public void invoke(int progress) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -247,23 +246,23 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (buttonView == enableEq) {
-            try{
-            spinner.setEnabled(isChecked);
-            equalizer.setEnabled(isChecked);
-            for (int i = 0; i < 5; i++) {
-                sliders[i].setEnabled(isChecked);
-            }
-            equalizerViewModel.setEqSwitch(isChecked);
-            }catch (Exception e){
-                equalizer=EffectInstance.getEqualizerInstance();
+            try {
+                spinner.setEnabled(isChecked);
+                equalizer.setEnabled(isChecked);
+                for (int i = 0; i < 5; i++) {
+                    sliders[i].setEnabled(isChecked);
+                }
+                equalizerViewModel.setEqSwitch(isChecked);
+            } catch (Exception e) {
+                equalizer = EffectInstance.getEqualizerInstance();
             }
 
         } else if (buttonView == enableBass) {
-            try{
-            bassBoost.setEnabled(isChecked);
-            bassSlider.setEnabled(isChecked);
-            equalizerViewModel.setbBSwitch(isChecked);
-            }catch (Exception e){
+            try {
+                bassBoost.setEnabled(isChecked);
+                bassSlider.setEnabled(isChecked);
+                equalizerViewModel.setbBSwitch(isChecked);
+            } catch (Exception e) {
                 bassBoost = EffectInstance.getBassBoostInstance();
             }
             if (isChecked)
@@ -272,14 +271,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 bassSlider.setProgressColor(bassSlider.getProgressBackgroundColor());
 
         } else if (buttonView == enableLoud) {
-            try{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-                loudnessEnhancer.setEnabled(isChecked);
-            loudSlider.setEnabled(isChecked);
-            equalizerViewModel.setLoudSwitch(isChecked);
-            }catch (Exception e){
+            try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
-                    loudnessEnhancer=EffectInstance.getLoudnessEnhancerInstance();
+                    loudnessEnhancer.setEnabled(isChecked);
+                loudSlider.setEnabled(isChecked);
+                equalizerViewModel.setLoudSwitch(isChecked);
+            } catch (Exception e) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT)
+                    loudnessEnhancer = EffectInstance.getLoudnessEnhancerInstance();
             }
             if (isChecked) {
                 loudSlider.setProgressColor(ContextCompat.getColor(getBaseContext(), R.color.colorAccent));
@@ -292,7 +291,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             try {
                 virtualizer.setEnabled(isChecked);
                 virtualSlider.setEnabled(isChecked);
-            }catch (Exception e){
+            } catch (Exception e) {
                 virtualizer = EffectInstance.getVirtualizerInstance();
             }
             equalizerViewModel.setVirSwitch(isChecked);
