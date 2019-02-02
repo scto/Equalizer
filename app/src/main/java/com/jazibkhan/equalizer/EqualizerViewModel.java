@@ -36,7 +36,7 @@ public class EqualizerViewModel extends AndroidViewModel{
         super(application);
         preferenceUtil = PreferenceUtil.getInstance(application);
         equalizer = EffectInstance.getEqualizerInstance();
-        bassBoost = EffectInstance.getBassBoostInstanceInstance();
+        bassBoost = EffectInstance.getBassBoostInstance();
         virtualizer = EffectInstance.getVirtualizerInstance();
         loudnessEnhancer = EffectInstance.getLoudnessEnhancerInstance();
         slider = new int[5];

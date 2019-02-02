@@ -7,12 +7,14 @@
     android:layout_height="match_parent"
     >
 
+
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:id="@+id/toolbar"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         >
+
     </android.support.v7.widget.Toolbar>
 
 
@@ -215,13 +217,10 @@
             android:paddingBottom="16dp">
 
 
-            <com.marcinmoskala.arcseekbar.ArcSeekBar
+            <com.jazibkhan.equalizer.ArcSeekBar.ArcSeekBar
                 android:id="@+id/bassSeekBar"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
-                app:progressBackgroundColor="@color/progress_gray"
-                app:progressColor="@color/colorAccent"
-                app:thumb="@drawable/thumb2"
                 />
 
             <FrameLayout
@@ -254,14 +253,11 @@
                 android:text="@string/bass_boost" />
 
 
-            <com.marcinmoskala.arcseekbar.ArcSeekBar
+            <com.jazibkhan.equalizer.ArcSeekBar.ArcSeekBar
                 android:id="@+id/volSeekBar"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
                 android:layout_centerHorizontal="true"
-                app:progressBackgroundColor="@color/progress_gray"
-                app:progressColor="@color/colorAccent"
-                app:thumb="@drawable/thumb2"
                 />
 
             <Switch
@@ -281,15 +277,12 @@
                 android:text="@string/loudness" />
 
 
-            <com.marcinmoskala.arcseekbar.ArcSeekBar
+            <com.jazibkhan.equalizer.ArcSeekBar.ArcSeekBar
                 android:id="@+id/virtualSeekBar"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                app:progressBackgroundColor="@color/progress_gray"
-                app:progressColor="@color/colorAccent"
-                app:thumb="@drawable/thumb2"
                 />
 
             <FrameLayout

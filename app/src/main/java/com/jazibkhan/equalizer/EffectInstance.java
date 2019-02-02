@@ -32,7 +32,7 @@ public class EffectInstance extends Application{
         }
         return equalizerInstance;
     }
-    static BassBoost getBassBoostInstanceInstance(){
+    static BassBoost getBassBoostInstance(){
         if (bassBoostInstance == null) {
             bassBoostInstance = new BassBoost(100,0);
         }
