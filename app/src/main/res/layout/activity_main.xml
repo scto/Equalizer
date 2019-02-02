@@ -65,7 +65,7 @@
                         android:layout_gravity="center"
                         android:textSize="12sp" />
 
-                    <SeekBar
+                    <android.support.v7.widget.AppCompatSeekBar
                         android:id="@+id/mySeekBar0"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
@@ -89,7 +89,7 @@
                         android:layout_gravity="center"
                         android:textSize="12sp" />
 
-                    <SeekBar
+                    <android.support.v7.widget.AppCompatSeekBar
                         android:id="@+id/mySeekBar1"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
@@ -113,7 +113,7 @@
                         android:layout_gravity="center"
                         android:textSize="12sp" />
 
-                    <SeekBar
+                    <android.support.v7.widget.AppCompatSeekBar
                         android:id="@+id/mySeekBar2"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
@@ -137,7 +137,7 @@
                         android:layout_gravity="center"
                         android:textSize="12sp" />
 
-                    <SeekBar
+                    <android.support.v7.widget.AppCompatSeekBar
                         android:id="@+id/mySeekBar3"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
@@ -161,7 +161,7 @@
                         android:layout_gravity="center"
                         android:textSize="12sp" />
 
-                    <SeekBar
+                    <android.support.v7.widget.AppCompatSeekBar
                         android:id="@+id/mySeekBar4"
                         android:layout_width="150dp"
                         android:layout_height="150dp"
