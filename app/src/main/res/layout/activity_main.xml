@@ -184,7 +184,8 @@
                     android:text="@string/presets"
                     android:layout_below="@id/linearLayoutEqual"
                     android:paddingBottom="16dp"
-                    android:textAlignment="center"/>
+                    android:textAlignment="center"
+                    />
 
                 <Spinner
                     android:id="@+id/spinner"

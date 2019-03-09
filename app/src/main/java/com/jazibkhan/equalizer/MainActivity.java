@@ -10,9 +10,11 @@ import android.media.audiofx.Virtualizer;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -190,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 try {
                     virtualizer.setStrength((short) progress);
                 } catch (Throwable e) {
+                    Log.d(TAG, "invoke: virtualizer Error");
                     e.printStackTrace();
                 }
             }
@@ -203,6 +206,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 try {
                     bassBoost.setStrength((short) progress);
                 } catch (Throwable e) {
+                    Log.d(TAG, "invoke: bassSlider Error");
                     e.printStackTrace();
                 }
             }
@@ -213,10 +217,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                     if (loudnessEnhancer.getTargetGain() != progress)
                         equalizerViewModel.setLoudSlider(progress);
+                    Log.d(TAG, "invoke: slider value "+loudnessEnhancer.getTargetGain());
                     try {
                         loudnessEnhancer.setTargetGain(progress);
                     } catch (Throwable e) {
-
+                        Log.d(TAG, "invoke: loudSlider Error");
                         e.printStackTrace();
                     }
                 }
@@ -324,6 +329,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                         equalizerViewModel.setSlider(newLevel, i);
                     break;
                 } catch (Exception e) {
+                    Log.d(TAG, "onProgressChanged: Equalizer Error");
                     equalizer = EffectInstance.getEqualizerInstance();
                 }
             }
@@ -384,8 +390,23 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             MainActivity.this.startActivity(myIntent);
             return true;
         }
+        if (id == R.id.action_load_preset) {
+            showCustomPresetDialog();
+            return true;
+        }
+        if (id == R.id.action_save_preset) {
+            showCustomPresetDialog();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void showCustomPresetDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        CustomPresetDialog alertDialog = new CustomPresetDialog();
+        alertDialog.show(fm, "fragment_alert");
     }
 
     public void disablePreset() {

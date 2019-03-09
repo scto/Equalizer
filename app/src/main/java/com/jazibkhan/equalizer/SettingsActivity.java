@@ -13,7 +13,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if(sharedPreferences.getBoolean("dark_theme",false)){
+        if(sharedPreferences.getBoolean("dark_theme",true)){
             setTheme(R.style.AppTheme_Dark);
         }
         else {

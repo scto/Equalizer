@@ -2,6 +2,7 @@ package com.jazibkhan.equalizer;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.media.audiofx.BassBoost;
 import android.media.audiofx.Equalizer;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class EqualizerViewModel extends AndroidViewModel{
@@ -32,8 +34,17 @@ public class EqualizerViewModel extends AndroidViewModel{
     private Boolean isCustomSelected;
     private boolean darkTheme;
 
+    private CustomPresetRepository mRepository;
+    private LiveData<List<CustomPreset>> mAllEntry;
+    private LiveData<List<String>> mPresetName;
+
     public EqualizerViewModel(@NonNull Application application) {
         super(application);
+
+        mRepository = new CustomPresetRepository(application);
+        mAllEntry = mRepository.getAllEntry();
+        mPresetName = mRepository.getPresetName();
+
         preferenceUtil = PreferenceUtil.getInstance(application);
         equalizer = EffectInstance.getEqualizerInstance();
         bassBoost = EffectInstance.getBassBoostInstance();
@@ -54,6 +65,24 @@ public class EqualizerViewModel extends AndroidViewModel{
         isCustomSelected=(preferenceUtil.getIsCustomSelected());
         darkTheme=(preferenceUtil.getDarkTheme());
 
+    }
+
+    LiveData<List<CustomPreset>> getAllEntry() {
+        return mAllEntry;
+    }
+
+    LiveData<List<String>> getPresetName() {
+        return mPresetName;
+    }
+
+    public void insert(CustomPreset entry) {
+        mRepository.insert(entry);
+    }
+    public void delete(CustomPreset entry) {
+        mRepository.delete(entry);
+    }
+    public void update(CustomPreset entry) {
+        mRepository.update(entry);
     }
 
     public Equalizer getEqualizer() {
