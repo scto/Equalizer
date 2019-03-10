@@ -62,6 +62,9 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         licenses.setOnClickListener(this);
         privacyPolicy.setOnClickListener(this);
         github.setOnClickListener(this);
+
+        //Remove this once Billing is enabled.
+        donate.setVisibility(View.GONE);
     }
 
     @Override

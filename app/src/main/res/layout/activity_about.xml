@@ -181,36 +181,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/licenses"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:minHeight="48dp"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    >
 
-                    <ImageView
-                        android:id="@+id/icon_licenses"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_description_white_24dp"
-                        tools:ignore="ContentDescription,UnusedAttribute" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginLeft="32dp"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="8dp"
-                        android:text="Licenses"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/report_bugs"
@@ -240,6 +211,36 @@
                         android:paddingBottom="8dp"
                         android:text="Report Bugs"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/licenses"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:minHeight="48dp"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    >
+
+                    <ImageView
+                        android:id="@+id/icon_licenses"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:srcCompat="@drawable/ic_description_white_24dp"
+                        tools:ignore="ContentDescription,UnusedAttribute" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginLeft="32dp"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp"
+                        android:text="Licenses"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+
                 </LinearLayout>
 
 

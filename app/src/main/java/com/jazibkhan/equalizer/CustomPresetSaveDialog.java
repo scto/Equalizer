@@ -40,8 +40,10 @@ public class CustomPresetSaveDialog extends DialogFragment {
                 if(presetNameEditText.getText().toString().trim().isEmpty()){
                     Toast.makeText(getContext(),"Please enter the name of the preset",Toast.LENGTH_SHORT).show();
                 }
-                else
-                savePreset();
+                else{
+                    savePreset();
+                    Toast.makeText(getContext(),"Preset saved Successfully",Toast.LENGTH_SHORT).show();
+                }
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override

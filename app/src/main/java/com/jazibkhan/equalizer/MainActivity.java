@@ -236,6 +236,24 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         enableBass.setOnCheckedChangeListener(this);
         enableLoud.setOnCheckedChangeListener(this);
         enableEq.setOnCheckedChangeListener(this);
+        setupPresetInterface();
+
+        //Empty because querying is an asynchronous process.
+        //Log.d(TAG, "onCreateDialogMainActivity: "+ equalizerViewModel.getAllEntry().getValue());
+        equalizerViewModel.getIsPresetClicked().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean aBoolean) {
+                if(aBoolean == Boolean.TRUE){
+                    Log.d(TAG, "onChanged: clicked");
+                    setupPresetInterface();
+                    equalizerViewModel.setIsPresetClicked(false);
+                }
+
+            }
+        });
+    }
+
+    void setupPresetInterface(){
         spinner.setSelection(equalizerViewModel.getSpinnerPos());
         enableEq.setChecked(equalizerViewModel.getEqSwitch());
         enableBass.setChecked(equalizerViewModel.getbBSwitch());
@@ -248,9 +266,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             int level = (equalizerViewModel.getSlider(i) - minLevel) * 100 / (maxLevel - minLevel);
             sliders[i].setProgress(level);
         }
-
-        //Empty because querying is an asynchronous process.
-        //Log.d(TAG, "onCreateDialogMainActivity: "+ equalizerViewModel.getAllEntry().getValue());
     }
 
 

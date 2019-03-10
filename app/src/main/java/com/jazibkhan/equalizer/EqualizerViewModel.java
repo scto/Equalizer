@@ -33,6 +33,7 @@ public class EqualizerViewModel extends AndroidViewModel{
     private Boolean eqSwitch;
     private Boolean isCustomSelected;
     private boolean darkTheme;
+    private MutableLiveData<Boolean> isPresetClicked;
 
     private CustomPresetRepository mRepository;
     private LiveData<List<CustomPreset>> mAllEntry;
@@ -44,6 +45,8 @@ public class EqualizerViewModel extends AndroidViewModel{
         mRepository = new CustomPresetRepository(application);
         mAllEntry = mRepository.getAllEntry();
         mPresetName = mRepository.getPresetName();
+        isPresetClicked = new MutableLiveData<>();
+        isPresetClicked.setValue(Boolean.FALSE);
 
         preferenceUtil = PreferenceUtil.getInstance(application);
         equalizer = EffectInstance.getEqualizerInstance();
@@ -66,6 +69,15 @@ public class EqualizerViewModel extends AndroidViewModel{
         darkTheme=(preferenceUtil.getDarkTheme());
 
     }
+
+    public MutableLiveData<Boolean> getIsPresetClicked() {
+        return isPresetClicked;
+    }
+
+    public void setIsPresetClicked(boolean isPresetClicked) {
+        this.isPresetClicked.setValue(isPresetClicked);
+    }
+
 
     LiveData<List<CustomPreset>> getAllEntry() {
         return mAllEntry;
