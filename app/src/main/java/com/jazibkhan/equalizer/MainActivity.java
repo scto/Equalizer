@@ -1,5 +1,6 @@
 package com.jazibkhan.equalizer;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,7 @@ import android.media.audiofx.Virtualizer;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +37,7 @@ import com.jazibkhan.equalizer.ArcSeekBar.ProgressListener;
 import com.kobakei.ratethisapp.RateThisApp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, Switch.OnCheckedChangeListener, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -245,6 +248,9 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             int level = (equalizerViewModel.getSlider(i) - minLevel) * 100 / (maxLevel - minLevel);
             sliders[i].setProgress(level);
         }
+
+        //Empty because querying is an asynchronous process.
+        //Log.d(TAG, "onCreateDialogMainActivity: "+ equalizerViewModel.getAllEntry().getValue());
     }
 
 
@@ -395,7 +401,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             return true;
         }
         if (id == R.id.action_save_preset) {
-            showCustomPresetDialog();
+            showCustomSavePresetDialog();
             return true;
         }
 
@@ -406,6 +412,13 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     private void showCustomPresetDialog() {
         FragmentManager fm = getSupportFragmentManager();
         CustomPresetDialog alertDialog = new CustomPresetDialog();
+        alertDialog.show(fm, "fragment_alert");
+    }
+
+    private void showCustomSavePresetDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        CustomPresetSaveDialog alertDialog = new CustomPresetSaveDialog();
+
         alertDialog.show(fm, "fragment_alert");
     }
 

@@ -16,13 +16,10 @@ import android.widget.LinearLayout;
 import com.jazibkhan.equalizer.LicensesDialogFragment;
 import com.jazibkhan.equalizer.R;
 
-import mehdi.sakout.aboutpage.AboutPage;
-import mehdi.sakout.aboutpage.Element;
-
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static String GITHUB = "https://github.com/j4zib/Equalizer";
-    private static String RATE_ON_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.jazibkhan.equalizer";
+    private static final String GITHUB = "https://github.com/j4zib/Equalizer";
+    private static final String RATE_ON_GOOGLE_PLAY = "https://play.google.com/store/apps/details?id=com.jazibkhan.equalizer";
     public static final String PRIVACY_POLICY = "https://docs.google.com/document/d/1GoypBqSTuSi_h3k18q9xpnKA0itwb9LvV-izrsOzPOM/edit?usp=sharing";
     private static final String TAG = "AboutActivity";
     LinearLayout donate, rateOnPlayStore, eMail, licenses, privacyPolicy, github;

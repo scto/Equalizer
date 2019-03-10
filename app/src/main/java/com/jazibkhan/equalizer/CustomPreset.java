@@ -31,6 +31,20 @@ public class CustomPreset {
     @ColumnInfo(name = "is_custom_selected")
     private Boolean isCustomSelected;
 
+    public CustomPreset(String presetName, int virSlider, int bbSlider, float loudSlider, int[] slider, int spinnerPos, Boolean virSwitch, Boolean bbSwitch, Boolean loudSwitch, Boolean eqSwitch, Boolean isCustomSelected) {
+        this.presetName = presetName;
+        this.virSlider = virSlider;
+        this.bbSlider = bbSlider;
+        this.loudSlider = loudSlider;
+        this.slider = slider;
+        this.spinnerPos = spinnerPos;
+        this.virSwitch = virSwitch;
+        this.bbSwitch = bbSwitch;
+        this.loudSwitch = loudSwitch;
+        this.eqSwitch = eqSwitch;
+        this.isCustomSelected = isCustomSelected;
+    }
+
     public int getId() {
         return id;
     }
