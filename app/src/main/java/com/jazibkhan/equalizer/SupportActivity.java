@@ -22,7 +22,7 @@ import org.w3c.dom.Text;
 public class SupportActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler, View.OnClickListener {
     BillingProcessor bp;
     CardView two,five,ten,twenty;
-    TextView twoText,fiveText,tenText,twentyText;
+    TextView twoText,fiveText,tenText,twentyText,purchaseText;
     public static final String TWO_PRODUCT_ID = "two_dollar";
     public static final String FIVE_PRODUCT_ID = "five_dollar";
     public static final String TEN_PRODUCT_ID = "ten_dollar";
@@ -50,10 +50,12 @@ public class SupportActivity extends AppCompatActivity implements BillingProcess
         fiveText = findViewById(R.id.five_text);
         tenText = findViewById(R.id.ten_text);
         twentyText = findViewById(R.id.twenty_text);
+        purchaseText = findViewById(R.id.purchase_text);
         two.setVisibility(View.GONE);
         five.setVisibility(View.GONE);
         ten.setVisibility(View.GONE);
         twenty.setVisibility(View.GONE);
+        purchaseText.setVisibility(View.GONE);
 
         Toolbar toolbar = findViewById(R.id.toolbar_donation);
         setSupportActionBar(toolbar);
@@ -68,6 +70,10 @@ public class SupportActivity extends AppCompatActivity implements BillingProcess
         five.setOnClickListener(this);
         ten.setOnClickListener(this);
         twenty.setOnClickListener(this);
+
+        if(equalizerViewModel.getIsPurchased()){
+            purchaseText.setVisibility(View.VISIBLE);
+        }
     }
 
         @Override
@@ -94,18 +100,22 @@ public class SupportActivity extends AppCompatActivity implements BillingProcess
 
             if(productId.equals(TWO_PRODUCT_ID)){
                 equalizerViewModel.setIsPurchased(true);
+                purchaseText.setVisibility(View.VISIBLE);
                 Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
             }
             else if(productId.equals(FIVE_PRODUCT_ID)){
                 equalizerViewModel.setIsPurchased(true);
+                purchaseText.setVisibility(View.VISIBLE);
                 Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
             }
             else if(productId.equals(TEN_PRODUCT_ID)){
                 equalizerViewModel.setIsPurchased(true);
+                purchaseText.setVisibility(View.VISIBLE);
                 Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
             }
             else if(productId.equals(TWENTY_PRODUCT_ID)){
                 equalizerViewModel.setIsPurchased(true);
+                purchaseText.setVisibility(View.VISIBLE);
                 Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
             }
         }

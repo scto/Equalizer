@@ -232,6 +232,18 @@
 
         </LinearLayout>
 
+
+
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/purchase_text"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thank you for Purchasing. All Ads are removed."
+        android:textAlignment="center"
+        android:textSize="16sp"
+        />
 
 </LinearLayout>
