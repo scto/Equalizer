@@ -7,14 +7,10 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.preference.AndroidResources;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-
-import com.jazibkhan.equalizer.LicensesDialogFragment;
-import com.jazibkhan.equalizer.R;
 
 public class AboutActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,7 +60,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         github.setOnClickListener(this);
 
         //Remove this once Billing is enabled.
-        donate.setVisibility(View.GONE);
+//        donate.setVisibility(View.GONE);
     }
 
     @Override
@@ -87,7 +83,8 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
             dialog.show(getSupportFragmentManager(), "LicensesDialog");
         }
         else if (v == donate){
-
+            Intent myIntent = new Intent(AboutActivity.this, SupportActivity.class);
+            AboutActivity.this.startActivity(myIntent);
         }
         else if (v == rateOnPlayStore){
             openUrl(RATE_ON_GOOGLE_PLAY);

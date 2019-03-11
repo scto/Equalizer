@@ -60,7 +60,7 @@ public class CustomPresetDialog extends DialogFragment {
                     equalizerViewModel.setVirSwitch(preset.getVirSwitch());
                     equalizerViewModel.setEqSwitch(preset.getEqSwitch());
                     equalizerViewModel.setSpinnerPos(preset.getSpinnerPos());
-                    
+
                     equalizerViewModel.setIsPresetClicked(true);
                     Log.d(TAG, "onClick: "+ preset.getPresetName());
                 }

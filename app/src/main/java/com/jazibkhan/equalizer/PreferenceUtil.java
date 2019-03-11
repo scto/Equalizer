@@ -23,6 +23,7 @@ public class PreferenceUtil {
     private static final String SLIDER4 = "slider4";
     private static final String DARK_THEME = "dark_theme";
     private static final String IS_CUSTOM_SELECTED = "is_custom_selected";
+    private static final String IS_PURCHASED = "is_purchased";
 
 
     private static PreferenceUtil sInstance;
@@ -164,6 +165,19 @@ public class PreferenceUtil {
         editor.putBoolean(IS_CUSTOM_SELECTED, value);
         editor.apply();
     }
+
+
+    public final boolean getIsPurchased() {
+        return mPref.getBoolean(IS_PURCHASED, false);
+    }
+
+    public void setIsPurchased(final boolean value) {
+        final SharedPreferences.Editor editor = mPref.edit();
+        editor.putBoolean(IS_PURCHASED, value);
+        editor.apply();
+    }
+
+
 
     public final boolean getLoudSwitch() {
         return mPref.getBoolean(LOUDSWITCH, false);

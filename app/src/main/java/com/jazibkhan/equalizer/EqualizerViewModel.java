@@ -32,6 +32,7 @@ public class EqualizerViewModel extends AndroidViewModel{
     private Boolean loudSwitch;
     private Boolean eqSwitch;
     private Boolean isCustomSelected;
+    private Boolean isPurchased;
     private boolean darkTheme;
     private MutableLiveData<Boolean> isPresetClicked;
 
@@ -66,6 +67,7 @@ public class EqualizerViewModel extends AndroidViewModel{
         loudSwitch=(preferenceUtil.getLoudSwitch());
         eqSwitch=(preferenceUtil.getEqSwitch());
         isCustomSelected=(preferenceUtil.getIsCustomSelected());
+        isPurchased = preferenceUtil.getIsPurchased();
         darkTheme=(preferenceUtil.getDarkTheme());
 
     }
@@ -201,6 +203,15 @@ public class EqualizerViewModel extends AndroidViewModel{
     public void setIsCustomSelected(boolean isCustomSelected) {
         this.isCustomSelected=(isCustomSelected);
         preferenceUtil.setIsCustomSelected(isCustomSelected);
+    }
+
+    public boolean getIsPurchased() {
+        return isPurchased;
+    }
+
+    public void setIsPurchased(boolean isPurchased) {
+        this.isPurchased=isPurchased;
+        preferenceUtil.setIsPurchased(isPurchased);
     }
 
     public boolean getDarkTheme() {

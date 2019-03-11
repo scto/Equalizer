@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.SupportActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     EqualizerViewModel equalizerViewModel;
     static final int MAX_SLIDERS = 5; // Must match the XML layout
     private static final String TAG = "MainActivity";
-    public static final String AD_ID = "ca-app-pub-3247504109469111~8021644228";
-    public static final String TEST_DEVICE = "59DFE37FE323A9EA004A20E6FED19D38";
     Equalizer equalizer = null;
     BassBoost bassBoost = null;
     Virtualizer virtualizer = null;
@@ -82,11 +81,15 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
         RateThisApp.onCreate(this);
         RateThisApp.showRateDialogIfNeeded(this);
-
-        MobileAds.initialize(this, AD_ID);
         mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice(TEST_DEVICE).build();
-        mAdView.loadAd(adRequest);
+        if(!equalizerViewModel.getIsPurchased()){
+            MobileAds.initialize(this, getString(R.string.app_id));
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.test_device_id)).build();
+            mAdView.loadAd(adRequest);
+        }
+        else{
+            mAdView.setVisibility(View.GONE);
+        }
 
         loudSliderText = findViewById(R.id.volTextView);
         enableEq = findViewById(R.id.switchEnable);
@@ -370,6 +373,12 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 MainActivity.this.recreate();
             }
         }
+        else if(s.equals("is_purchased")){
+            if (sharedPreferences.getBoolean("is_purchased", false)) {
+                mAdView.destroy();
+                mAdView.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -393,6 +402,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_remove_ads);
+        if(equalizerViewModel.getIsPurchased()){
+            menuItem.setVisible(false);
+        }
         return true;
     }
 
@@ -406,17 +419,22 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             MainActivity.this.startActivity(myIntent);
             return true;
         }
-        if (id == R.id.action_about) {
+        else if (id == R.id.action_about) {
             Intent myIntent = new Intent(MainActivity.this, AboutActivity.class);
             MainActivity.this.startActivity(myIntent);
             return true;
         }
-        if (id == R.id.action_load_preset) {
+        else if (id == R.id.action_load_preset) {
             showCustomPresetDialog();
             return true;
         }
-        if (id == R.id.action_save_preset) {
+        else if (id == R.id.action_save_preset) {
             showCustomSavePresetDialog();
+            return true;
+        }
+        else if (id == R.id.action_remove_ads) {
+            Intent myIntent = new Intent(MainActivity.this, com.jazibkhan.equalizer.SupportActivity.class);
+            MainActivity.this.startActivity(myIntent);
             return true;
         }
 
