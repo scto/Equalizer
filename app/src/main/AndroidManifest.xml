@@ -64,6 +64,7 @@
             android:label="Support"
             >
         </activity>
+        <receiver android:name="com.onesignal.UpgradeReceiver" tools:node="remove" />
     </application>
 
 </manifest>
