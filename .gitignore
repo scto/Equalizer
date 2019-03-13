@@ -11,3 +11,4 @@
 app/release/output.json
 app/release/output.json
 **/*/res/values/secrets.xml
+app/release/release/app.aab
