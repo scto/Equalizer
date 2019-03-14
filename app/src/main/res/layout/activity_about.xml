@@ -10,7 +10,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="?attr/actionBarSize"
+        app:titleTextAppearance="@style/Toolbar.TitleText">
 
     </android.support.v7.widget.Toolbar>
 
@@ -56,10 +57,10 @@
                         android:layout_gravity="center_vertical"
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
-                        android:text="An Open Source, Light Weight Equalizer for all devices."
+                        android:text="@string/an_open_source_light_weight_equalizer_for_all_devices"
                         android:textAlignment="center"
                         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -92,7 +93,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Rate"
+                            android:text="@string/rate"
                             android:paddingTop="8dp"
 
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
@@ -102,7 +103,7 @@
                             android:layout_height="wrap_content"
 
                             android:paddingBottom="8dp"
-                            android:text="Leave a positive rating on Google Play."
+                            android:text="@string/leave_a_positive_rating_on_google_play"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
                     </LinearLayout>
@@ -137,7 +138,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Donate"
+                            android:text="@string/donate"
                             android:paddingTop="8dp"
 
                             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
@@ -145,7 +146,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Any donation will remove the ads."
+                            android:text="@string/any_donation_will_remove_the_ads"
                             android:paddingBottom="8dp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
@@ -177,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
                         android:layout_marginLeft="32dp"
-                        android:text="Fork on GitHub"
+                        android:text="@string/fork_on_github"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
@@ -211,7 +212,7 @@
                         android:layout_marginLeft="32dp"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:text="Report Bugs"
+                        android:text="@string/report_bugs"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
                 </LinearLayout>
                 <LinearLayout
@@ -240,7 +241,7 @@
                         android:layout_marginLeft="32dp"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:text="Licenses"
+                        android:text="@string/licenses"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>
@@ -272,7 +273,7 @@
                         android:layout_marginLeft="32dp"
                         android:paddingTop="8dp"
                         android:paddingBottom="8dp"
-                        android:text="Privacy Policy"
+                        android:text="@string/privacy_policy"
                         android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
                 </LinearLayout>

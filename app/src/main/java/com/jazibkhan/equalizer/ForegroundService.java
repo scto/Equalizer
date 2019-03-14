@@ -26,7 +26,6 @@ public class ForegroundService extends Service{
 
     private static final String LOG_TAG = "ForegroundService";
     String CHANNEL_ID="myChannel";
-    EqualizerViewModel equalizerViewModel;
 
 
     @Override
@@ -38,7 +37,6 @@ public class ForegroundService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction().equals(Constants.ACTION.STARTFOREGROUND_ACTION)) {
-            Log.i(LOG_TAG, "Received Start Foreground Intent ");
             Intent notificationIntent = new Intent(this, MainActivity.class);
             notificationIntent.setAction(Constants.ACTION.MAIN_ACTION);
             notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
@@ -48,18 +46,16 @@ public class ForegroundService extends Service{
 
 
             Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.eq_icon)
-                    .setContentTitle("Equalizer")
-                    .setContentText("Equalizer is enabled")
+                    .setContentTitle(getString(R.string.app_name))
+                    .setContentText(getString(R.string.eq_is_enabled))
                     .setContentIntent(pendingIntent).setPriority(NotificationCompat.PRIORITY_HIGH).setOngoing(true)
                     .build();
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
                     notification);
-            Log.i("WOW", "BUILDED NOTIFICATION ");
         }
 
         else if (intent.getAction().equals(
                 Constants.ACTION.STOPFOREGROUND_ACTION)) {
-            Log.i(LOG_TAG, "Received Stop Foreground Intent");
             stopForeground(true);
             stopSelf();
         }
@@ -70,8 +66,8 @@ public class ForegroundService extends Service{
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Equalizer";
-            String description = "Equalizer is enabled";
+            CharSequence name = getString(R.string.app_name);
+            String description = getString(R.string.eq_is_enabled);
             int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
@@ -85,7 +81,6 @@ public class ForegroundService extends Service{
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.i(LOG_TAG, "In onDestroy");
     }
 
     @Override

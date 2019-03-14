@@ -17,8 +17,6 @@ import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.SkuDetails;
 import com.anjlab.android.iab.v3.TransactionDetails;
 
-import org.w3c.dom.Text;
-
 public class SupportActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler, View.OnClickListener {
     BillingProcessor bp;
     CardView two,five,ten,twenty;
@@ -98,25 +96,27 @@ public class SupportActivity extends AppCompatActivity implements BillingProcess
              * Called when requested PRODUCT ID was successfully purchased
              */
 
-            if(productId.equals(TWO_PRODUCT_ID)){
-                equalizerViewModel.setIsPurchased(true);
-                purchaseText.setVisibility(View.VISIBLE);
-                Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
-            }
-            else if(productId.equals(FIVE_PRODUCT_ID)){
-                equalizerViewModel.setIsPurchased(true);
-                purchaseText.setVisibility(View.VISIBLE);
-                Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
-            }
-            else if(productId.equals(TEN_PRODUCT_ID)){
-                equalizerViewModel.setIsPurchased(true);
-                purchaseText.setVisibility(View.VISIBLE);
-                Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
-            }
-            else if(productId.equals(TWENTY_PRODUCT_ID)){
-                equalizerViewModel.setIsPurchased(true);
-                purchaseText.setVisibility(View.VISIBLE);
-                Toast.makeText(this,"Purchased Sucessfully.",Toast.LENGTH_SHORT).show();
+            switch (productId) {
+                case TWO_PRODUCT_ID:
+                    equalizerViewModel.setIsPurchased(true);
+                    purchaseText.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, getString(R.string.purchased_successfully), Toast.LENGTH_SHORT).show();
+                    break;
+                case FIVE_PRODUCT_ID:
+                    equalizerViewModel.setIsPurchased(true);
+                    purchaseText.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, getString(R.string.purchased_successfully), Toast.LENGTH_SHORT).show();
+                    break;
+                case TEN_PRODUCT_ID:
+                    equalizerViewModel.setIsPurchased(true);
+                    purchaseText.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, getString(R.string.purchased_successfully), Toast.LENGTH_SHORT).show();
+                    break;
+                case TWENTY_PRODUCT_ID:
+                    equalizerViewModel.setIsPurchased(true);
+                    purchaseText.setVisibility(View.VISIBLE);
+                    Toast.makeText(this, getString(R.string.purchased_successfully), Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
 

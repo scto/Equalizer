@@ -34,18 +34,18 @@ public class CustomPresetSaveDialog extends DialogFragment {
         presetNameEditText = view.findViewById(R.id.preset_name);
         presetNameEditText.requestFocus();
         builder.setView(view);
-        builder.setTitle("Save As Preset").setPositiveButton("SAVE", new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.save_as_preset)).setPositiveButton(getString(R.string.save), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if(presetNameEditText.getText().toString().trim().isEmpty()){
-                    Toast.makeText(getContext(),"Please enter the name of the preset",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),getString(R.string.please_enter_preset),Toast.LENGTH_SHORT).show();
                 }
                 else{
                     savePreset();
-                    Toast.makeText(getContext(),"Preset saved Successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),getString(R.string.preset_saved_successfully),Toast.LENGTH_SHORT).show();
                 }
             }
-        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 

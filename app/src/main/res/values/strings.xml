@@ -10,6 +10,35 @@
     <string name="loudness">Loudness</string>
     <string name="about">About</string>
 
+
+
+    <string name="settings">Settings</string>
+    <string name="support_summary">Thank you for Installing this app. If you liked my app and you think I deserve to get paid for my work, you can leave some money here.  Any purchase will remove ads.</string>
+    <string name="purchase_thanks">Thank you for Purchasing. All Ads are removed.</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="licenses">Licenses</string>
+    <string name="report_bugs">Report Bugs</string>
+    <string name="fork_on_github">Fork on GitHub</string>
+    <string name="any_donation_will_remove_the_ads">Any donation will remove the ads.</string>
+    <string name="donate">Donate</string>
+    <string name="leave_a_positive_rating_on_google_play">Leave a positive rating on Google Play.</string>
+    <string name="rate">Rate</string>
+    <string name="an_open_source_light_weight_equalizer_for_all_devices">An Open Source, Light Weight Equalizer for all devices.</string>
+    <string name="preset_name">Preset Name</string>
+    <string name="purchased_successfully">Purchased Successfully</string>
+    <string name="eq_is_enabled">Equalizer is enabled</string>
+    <string name="load_preset">Load Preset</string>
+    <string name="preset_deleted_successfully">Preset deleted Successfully</string>
+    <string name="delete_preset">Delete Preset</string>
+    <string name="please_save_preset">Please save a Preset first</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_as_preset">Save As Preset</string>
+    <string name="save">SAVE</string>
+    <string name="please_enter_preset">Please Enter the Name of the Preset</string>
+    <string name="preset_saved_successfully">Preset Saved Successfully</string>
+
+
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -81,7 +110,7 @@
     <string name="pref_ringtone_silent" translatable="false">Silent</string>
 
     <string name="pref_title_vibrate" translatable="false">Vibrate</string>
-    <string name="settings">Settings</string>
+
 
 
 </resources>

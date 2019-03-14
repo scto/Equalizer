@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thank you for Installing this app. If you liked my app and you think I deserve to get paid for my work, you can leave some money here.\n\nAny purchase will remove ads."
+            android:text="@string/support_summary"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
@@ -113,7 +113,7 @@
                         android:text="☺️"
                         android:textAlignment="center"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
 
                         />
 
@@ -162,7 +162,7 @@
                         android:text="😊"
                         android:textAlignment="center"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
 
                         />
 
@@ -211,7 +211,7 @@
                         android:text="😍"
                         android:textAlignment="center"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                        android:textSize="18dp"
+                        android:textSize="18sp"
 
                         />
 
@@ -241,7 +241,7 @@
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Thank you for Purchasing. All Ads are removed."
+        android:text="@string/purchase_thanks"
         android:textAlignment="center"
         android:textSize="16sp"
         />

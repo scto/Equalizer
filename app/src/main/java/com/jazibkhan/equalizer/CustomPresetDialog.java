@@ -36,14 +36,14 @@ public class CustomPresetDialog extends DialogFragment {
         eqPresetName = new ArrayList<>();
         adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, eqPresetName );
 
-        builder.setTitle("Load Preset").setAdapter(adapter, new DialogInterface.OnClickListener() {
+        builder.setTitle(getString(R.string.load_preset)).setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
                 if(deleteClicked){
                     CustomPreset preset = eqPreset.get(which);
                     equalizerViewModel.delete(preset);
-                    Toast.makeText(getContext(),"Preset deleted Successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),getString(R.string.preset_deleted_successfully),Toast.LENGTH_SHORT).show();
                 }
                 else{
                     //Implementing click using LiveData because I don't like interfaces.
@@ -65,7 +65,7 @@ public class CustomPresetDialog extends DialogFragment {
                     Log.d(TAG, "onClick: "+ preset.getPresetName());
                 }
             }
-        }).setNeutralButton("Delete Preset", null);
+        }).setNeutralButton(getString(R.string.delete_preset), null);
 
         
         return builder.create();
@@ -80,7 +80,7 @@ public class CustomPresetDialog extends DialogFragment {
             public void onChanged(@Nullable List<CustomPreset> customPresets) {
                 if(customPresets==null||customPresets.isEmpty()){
                     try{
-                        Toast.makeText(getActivity(),"Please save a Preset first",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(),getString(R.string.please_save_preset),Toast.LENGTH_SHORT).show();
                     }catch (Exception e){
                         Log.d(TAG, "onChanged: "+e.toString());
                     }
@@ -110,8 +110,8 @@ public class CustomPresetDialog extends DialogFragment {
                 @Override
                 public void onClick(View v)
                 {
-                    d.setTitle("Delete Preset");
-                    neutralButton.setText("Cancel");
+                    d.setTitle(getString(R.string.delete_preset));
+                    neutralButton.setText(getString(R.string.cancel));
                     if(deleteClicked)
                         d.dismiss();
 

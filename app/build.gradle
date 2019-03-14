@@ -7,14 +7,19 @@ android {
     defaultConfig {
         applicationId "com.jazibkhan.equalizer"
         minSdkVersion 15
-        targetSdkVersion 26
-        versionCode 25
-        versionName "3.4"
+        targetSdkVersion 28
+        versionCode 28
+        versionName "3.5.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
