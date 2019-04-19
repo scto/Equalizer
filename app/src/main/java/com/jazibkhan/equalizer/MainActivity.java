@@ -143,22 +143,28 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             enableLoud.setVisibility(View.GONE);
             loudSliderText.setVisibility(View.GONE);
         }
-        numSliders = equalizer.getNumberOfBands();
-        short r[] = equalizer.getBandLevelRange();
-        minLevel = r[0];
-        maxLevel = r[1];
-        for (int i = 0; i < numSliders && i < MAX_SLIDERS; i++) {
-            int freq_range = equalizer.getCenterFreq((short) i);
-            sliders[i].setOnSeekBarChangeListener(this);
-            sliderLabels[i].setText(milliHzToString(freq_range));
-        }
-        short noOfPresets = equalizer.getNumberOfPresets();
-        for (short i = 0; i < noOfPresets; i++) {
-            eqPreset.add(equalizer.getPresetName(i));
-        }
-        eqPreset.add("Custom");
-        spinner.setAdapter(spinnerAdapter);
+        try {
+            numSliders = equalizer.getNumberOfBands();
+            short r[] = equalizer.getBandLevelRange();
+            minLevel = r[0];
+            maxLevel = r[1];
 
+            for (int i = 0; i < numSliders && i < MAX_SLIDERS; i++) {
+                int freq_range = equalizer.getCenterFreq((short) i);
+                sliders[i].setOnSeekBarChangeListener(this);
+                sliderLabels[i].setText(milliHzToString(freq_range));
+            }
+            short noOfPresets = equalizer.getNumberOfPresets();
+            for (short i = 0; i < noOfPresets; i++) {
+                eqPreset.add(equalizer.getPresetName(i));
+            }
+            eqPreset.add("Custom");
+            spinner.setAdapter(spinnerAdapter);
+        }catch(Exception e){
+            equalizer=EffectInstance.getEqualizerInstance();
+            minLevel = 0;
+            maxLevel = 0;
+        }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -192,10 +198,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         virtualSlider.setOnProgressChangedListener(new ProgressListener() {
             @Override
             public void invoke(int progress) {
-                if (virtualizer.getRoundedStrength() != (short) progress) {
-                    equalizerViewModel.setVirSlider(progress);
-                }
                 try {
+                    if (virtualizer.getRoundedStrength() != (short) progress) {
+                        equalizerViewModel.setVirSlider(progress);
+                    }
                     virtualizer.setStrength((short) progress);
                 } catch (Throwable e) {
                     Log.d(TAG, "invoke: virtualizer Error");
@@ -206,10 +212,11 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         bassSlider.setOnProgressChangedListener(new ProgressListener() {
             @Override
             public void invoke(int progress) {
-                if (bassBoost.getRoundedStrength() != (short) progress) {
-                    equalizerViewModel.setBBSlider(progress);
-                }
                 try {
+                    if (bassBoost.getRoundedStrength() != (short) progress) {
+                        equalizerViewModel.setBBSlider(progress);
+                    }
+
                     bassBoost.setStrength((short) progress);
                 } catch (Throwable e) {
                     Log.d(TAG, "invoke: bassSlider Error");
@@ -221,10 +228,10 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             @Override
             public void invoke(int progress) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    if (loudnessEnhancer.getTargetGain() != progress)
-                        equalizerViewModel.setLoudSlider(progress);
-                    Log.d(TAG, "invoke: slider value "+loudnessEnhancer.getTargetGain());
                     try {
+                        if (loudnessEnhancer.getTargetGain() != progress)
+                            equalizerViewModel.setLoudSlider(progress);
+                        Log.d(TAG, "invoke: slider value "+loudnessEnhancer.getTargetGain());
                         loudnessEnhancer.setTargetGain(progress);
                     } catch (Throwable e) {
                         Log.d(TAG, "invoke: loudSlider Error");

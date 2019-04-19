@@ -28,26 +28,47 @@ public class EffectInstance extends Application{
 
     static Equalizer getEqualizerInstance(){
         if (equalizerInstance == null) {
-            equalizerInstance = new Equalizer(max,0);
+            try {
+                equalizerInstance = new Equalizer(max,0);
+            } catch (RuntimeException e) {
+                equalizerInstance = null;
+                e.printStackTrace();
+            }
+
         }
         return equalizerInstance;
     }
     static BassBoost getBassBoostInstance(){
         if (bassBoostInstance == null) {
-            bassBoostInstance = new BassBoost(max,0);
+            try {
+                bassBoostInstance = new BassBoost(max,0);
+            } catch (RuntimeException e) {
+                bassBoostInstance = null;
+                e.printStackTrace();
+            }
         }
         return bassBoostInstance;
     }
     static Virtualizer getVirtualizerInstance(){
         if (virtualizerInstance == null) {
-            virtualizerInstance = new Virtualizer(max,0);
+            try {
+                virtualizerInstance = new Virtualizer(max,0);
+            } catch (RuntimeException e) {
+                virtualizerInstance = null;
+                e.printStackTrace();
+            }
         }
         return virtualizerInstance;
     }
     static LoudnessEnhancer getLoudnessEnhancerInstance(){
         if (loudnessEnhancerInstance == null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                loudnessEnhancerInstance = new LoudnessEnhancer(0);
+                try {
+                    loudnessEnhancerInstance = new LoudnessEnhancer(0);
+                } catch (RuntimeException e) {
+                    loudnessEnhancerInstance = null;
+                    e.printStackTrace();
+                }
             }
         }
         return loudnessEnhancerInstance;

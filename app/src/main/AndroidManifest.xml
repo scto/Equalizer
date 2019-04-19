@@ -16,6 +16,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
+
     <application
         android:name=".EffectInstance"
         android:allowBackup="true"
@@ -26,6 +27,9 @@
         android:theme="@style/AppTheme.Dark"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:icon">
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

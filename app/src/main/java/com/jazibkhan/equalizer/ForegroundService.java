@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.RemoteViews;
 
 import com.jazibkhan.equalizer.MainActivity;
 
@@ -44,11 +45,16 @@ public class ForegroundService extends Service{
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                     notificationIntent, 0);
 
-
-            Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID).setSmallIcon(R.drawable.eq_icon)
-                    .setContentTitle(getString(R.string.app_name))
-                    .setContentText(getString(R.string.eq_is_enabled))
-                    .setContentIntent(pendingIntent).setPriority(NotificationCompat.PRIORITY_HIGH).setOngoing(true)
+            RemoteViews notifiactionCollapsed = new RemoteViews(getPackageName(),R.layout.notification_collapsed);
+            Notification notification = new NotificationCompat.Builder(this,CHANNEL_ID)
+                    .setSmallIcon(R.drawable.eq_icon)
+                    .setCustomContentView(notifiactionCollapsed)
+             //       .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                    .setShowWhen(false)
+                    .setContentIntent(pendingIntent)
+                    .setPriority(NotificationCompat.PRIORITY_LOW)
+                    .setVisibility(NotificationCompat.VISIBILITY_SECRET)
+                    .setOngoing(true)
                     .build();
             startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
                     notification);
